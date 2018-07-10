@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>官网</title>
+	<link rel="stylesheet" href="./lib/fullpage/dist/jquery.fullpage.min.css">
+	<link rel="stylesheet" href="./css/main.css">
+</head>
+<body>
+	<!-- logo -->
+	<div id="logoEl" class="logo">MAap</div>
+	<!-- menu -->
+	<div id="menuEl" class="menu-list">
+		<ul>
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	</div>
+	<div id="mainEL">
+		<div class="section section1">
+			官网首页
+			<div id="itemName" class="item-name">
+				项目名称
+			</div>
+		</div>
+		<div class="section section2">
+			<div class="wrap">
+					<span class="about-left">about us</span>
+					<div class="about-right">
+						<div class="about-content">
+							<h3>公司简介</h3>
+							<h5>Company Profile</h5>
+							<p>MAap是一家设计施工一体化公司。利用现代的设计与建造方法为独立业主私人定制从住宅到小型酒店的高端物业。<br> 目前国内高舒适度住宅的设计与建造相对欧美还有非常大的差距，往往出现使用不便以及冬冷夏热的情况。这种质量问题除了设计初期的失误以外，更大程度是由于每地工人素质区别巨大造成了由内到外完工细节质量的不可控。<br> MAap的设计基于预制，利用中国高精度的工业产能按照欧洲标准加工高质量的进口原材料，达到70%以上的场外完成度。仅仅将少量的拼装工作留给最后的施工人员，达成了超高的质量均一度，也让欧标建筑在中国的达成变得现实。</p>
+							<h3>联系我们</h3>
+							<h5>contact us</h5>
+							<p>地址：上海市嘉定区安亭新镇安礼路21号105<br>电话：021-1234567<br>邮箱：00000@maap.com </p>
+							<div>—— MAaP</div>
+						</div>
+					</div>
+			</div>
+		</div>
+		<div class="section section3">
+			<div class="wrap"></div>
+			<div class="news-list">
+				<div class="news-item"></div>
+				<div class="news-item"></div>
+				<div class="news-item"></div>
+			</div>
+		</div>
+	</div>
+
+	<script src="./lib/jquery/jquery.min.js"></script>
+	<script src="./lib/fullpage/dist/jquery.fullpage.min.js"></script>
+	<script src="./lib/fullpage/vendors/jquery.easings.min.js"></script>
+
+	<script>
+		$(function() {
+			$('#mainEL').fullpage({
+				css3: false,
+				scrollingSpeed: 900,
+				easing: 'easeInExpo',
+				afterLoad: function(anchorLink, index) {
+					console.log(anchorLink, index);
+				},
+				onLeave: function(index, nextIndex, direction) {
+					console.log(index, nextIndex, direction);
+				},
+				afterRender: function() {
+
+				}
+			});
+
+			$(document).on('click', '#itemName', function() {
+				
+			});
+		});
+	</script>
+</body>
+</html>

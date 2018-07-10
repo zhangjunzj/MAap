@@ -1,0 +1,171 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v4.0 | 20180602
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+main, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, main, menu, nav, section {
+  display: block; }
+
+/* HTML5 hidden-attribute fix for newer browsers */
+*[hidden] {
+  display: none; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+body {
+  position: relative;
+  font-family: PingFangSC-Regular; }
+
+.logo {
+  position: fixed;
+  top: 50px;
+  left: 50px;
+  width: 61px;
+  height: 30px;
+  font-size: 22px;
+  color: #ea5514;
+  line-height: 30px;
+  z-index: 99999; }
+
+.menu-list {
+  position: fixed;
+  top: 50px;
+  right: 100px;
+  z-index: 99999; }
+  .menu-list > ul li {
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin-left: 20px;
+    background: #ccc;
+    cursor: pointer;
+    user-select: none; }
+    .menu-list > ul li:hover {
+      background: #ddd; }
+
+.section {
+  position: relative; }
+  .section .wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; }
+
+.section1 {
+  background: #4BBFC3; }
+
+.section2 {
+  background-image: url(../images/aboutus.jpg);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  background-origin: content-box; }
+  .section2 .about-left {
+    position: absolute;
+    left: 0px;
+    top: 50%;
+    margin-top: -50px;
+    width: 50%;
+    height: 100px;
+    text-align: center;
+    font-size: 100px;
+    color: #fff;
+    transition: 1s;
+    transform: rotate(0deg); }
+  .section2.active .about-left {
+    transform: rotate(90deg); }
+  .section2 .about-right {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 50%;
+    height: 100%;
+    padding-left: 80px;
+    padding-right: 100px;
+    box-sizing: border-box;
+    background: #fff; }
+
+.about-content h3 {
+  height: 40px;
+  line-height: 40px;
+  font-size: 22px;
+  color: #EA5514; }
+
+.about-content h5 {
+  padding-bottom: 30px;
+  font-size: 15px;
+  color: #036EB8; }
+
+.about-content p {
+  line-height: 36px;
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 60px; }
+
+.about-content > div {
+  font-size: 22px;
+  color: #036EB8;
+  text-align: right; }
+
+.item-name {
+  position: absolute;
+  bottom: 50px;
+  right: 100px;
+  height: 86px;
+  line-height: 86px;
+  padding: 0px 30px;
+  font-size: 22px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  user-select: none; }
+
+.news-list {
+  position: absolute;
+  left: 50%; }
+  .news-list .news-item {
+    width: 664px;
+    height: 200px;
+    background: white;
+    box-shadow: 0px 2px 8px 0px rgba(145, 193, 226, 0.39); }
+    .news-list .news-item.active {
+      border: 1px solid #036eb8; }

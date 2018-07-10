@@ -1,0 +1,17 @@
+{
+  "name": "MAap",
+  "authors": [
+    "zhangjun <zhangjun86@ceair.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
