@@ -14,3 +14,4 @@ gulp.task('scss', function() {
 gulp.task('default', function() {
     console.log('gulp task 启动成功')
 });
+
