@@ -100,14 +100,35 @@ body {
   z-index: 99999; }
   .menu-list > ul li {
     float: left;
+    position: relative;
     width: 24px;
     height: 24px;
-    margin-left: 20px;
+    margin-left: 32px;
     background: #ccc;
     cursor: pointer;
     user-select: none; }
     .menu-list > ul li:hover {
       background: #ddd; }
+      .menu-list > ul li:hover span {
+        opacity: 1; }
+    .menu-list > ul li span {
+      position: absolute;
+      top: 34px;
+      left: 50%;
+      margin-left: -16px;
+      width: 32px;
+      height: 18px;
+      line-height: 18px;
+      border-radius: 2px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      font-size: 13px;
+      color: #fff;
+      opacity: 0;
+      transition: 0.3s; }
+      .menu-list > ul li span.span-4 {
+        width: 60px;
+        margin-left: -30px; }
 
 .section {
   position: relative; }
@@ -299,16 +320,16 @@ body {
     font-size: 100px;
     color: #fff;
     transition: 1s;
-    transform: translateY(-100px);
+    transform: translateX(-100px);
     opacity: 0; }
   .section2.active .about-left {
     transition-delay: 0.7s;
-    transform: translateY(0px);
+    transform: translateX(0px);
     opacity: 1; }
   .section2.active .about-content {
     opacity: 1;
     transform: translateY(0px);
-    transition-delay: 0.8s; }
+    transition-delay: 0.6s; }
   .section2 .about-right {
     position: absolute;
     top: 0;
@@ -326,9 +347,9 @@ body {
   left: 72px;
   right: 100px;
   top: 10%;
-  opacity: 0;
+  opacity: 1;
   transition: 0.5s;
-  transform: translateY(100px); }
+  transform: translateY(0px); }
   .about-content h3 {
     height: 40px;
     line-height: 40px;
@@ -368,14 +389,14 @@ body {
     padding: 16px;
     box-sizing: border-box;
     cursor: pointer;
-    transition: 0.5s;
-    opacity: 0; }
+    border: 1px solid transparent;
+    opacity: 1; }
     .news-list .news-item:hover {
+      transition: 0.2s;
       box-shadow: 0px 5px 24px 0px rgba(145, 193, 226, 0.39); }
-      .news-list .news-item:hover img {
-        transform: scale(1.1); }
     .news-list .news-item.active {
-      border: 1px solid #036eb8; }
+      border: 1px solid #036eb8;
+      box-shadow: 0px 5px 24px 0px rgba(145, 193, 226, 0.39); }
     .news-list .news-item .img {
       width: 130px;
       height: 130px;
@@ -387,7 +408,10 @@ body {
         display: block;
         width: 100%;
         height: 100%;
-        transition: 0.5s; }
+        transform: scale(1); }
+        .news-list .news-item .img img:hover {
+          transition: 0.3s;
+          transform: scale(1.1); }
     .news-list .news-item .new-info {
       overflow: hidden;
       padding-left: 8px; }
@@ -429,5 +453,4 @@ body {
     line-height: 20px; }
 
 .section3.active .news-item {
-  opacity: 1;
-  transition-delay: 1s; }
+  opacity: 1; }

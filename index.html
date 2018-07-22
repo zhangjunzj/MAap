@@ -14,10 +14,10 @@
 	<!-- menu -->
 	<div id="menuEl" class="menu-list">
 		<ul>
-			<li id="navMenu1"><a href="#page1">1</a></li>
-			<li id="navMenu2"><a href="#page1">2</a></li>
-			<li id="navMenu3"><a href="#page2">3</a></li>
-			<li id="navMenu4"><a href="#page3">4</a></li>
+			<li id="navMenu1"><a href="#page1">1</a><span>首页</span></li>
+			<li id="navMenu2"><a href="#page1">2</a><span>项目</span></li>
+			<li id="navMenu3"><a href="#page2">3</a><span class="span-4">关于我们</span></li>
+			<li id="navMenu4"><a href="#page3">4</a><span>新闻</span></li>
 		</ul>
 	</div>
 	<div id="mainEL">
@@ -219,6 +219,10 @@
 
 			$("#navMenu3").click(function() {
 			
+			});
+
+			$(document).on('click', '.news-item', function() {
+				$(this).addClass('active').siblings().removeClass('active');
 			});
 
 
