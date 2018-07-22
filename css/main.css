@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/
    v4.0 | 20180602
    License: none (public domain)
@@ -62,9 +63,14 @@ table {
   width: 100%;
   height: 100%; }
 
+html, body {
+  overflow: hidden;
+  height: 100%; }
+
 body {
   position: relative;
   font-family: PingFangSC-Regular;
+  font-family: '微软雅黑';
   box-sizing: border-box; }
 
 .logo {
@@ -76,7 +82,16 @@ body {
   font-size: 22px;
   color: #ea5514;
   line-height: 30px;
+  padding-left: 34px;
   z-index: 99999; }
+  .logo i {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 30px;
+    height: 30px;
+    background-image: url(../images/logo.png);
+    background-size: 30px 30px; }
 
 .menu-list {
   position: fixed;
@@ -106,15 +121,23 @@ body {
 
 .section1 .wrap-right {
   position: absolute;
-  top: 0px;
-  right: -50%;
-  width: 50%;
-  height: 100%;
+  bottom: 50px;
+  right: 100px;
+  width: 200px;
+  height: 60px;
   background: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
   z-index: 999;
+  opacity: 0;
   transition: 0.3s; }
   .section1 .wrap-right.active {
-    right: 0; }
+    right: 0px;
+    bottom: 0px;
+    width: 50%;
+    height: 100%;
+    opacity: 1; }
+    .section1 .wrap-right.active p {
+      transition-delay: 0.3s; }
   .section1 .wrap-right .item-detail {
     position: absolute;
     top: 26%;
@@ -130,11 +153,14 @@ body {
       .section1 .wrap-right .item-detail h2 span {
         position: absolute;
         left: -40px;
-        top: 0px;
-        width: 30px;
-        height: 30px;
-        background: #f90;
+        top: 3px;
+        width: 24px;
+        height: 24px;
+        background-image: url(../images/xmjs2.png);
+        background-size: 24px 24px;
         cursor: pointer; }
+        .section1 .wrap-right .item-detail h2 span:hover {
+          background-image: url(../images/xmjs2_hover.png); }
     .section1 .wrap-right .item-detail h3 {
       display: inline-block;
       opacity: 0.2;
@@ -154,7 +180,7 @@ body {
   right: 100px;
   height: 60px;
   line-height: 60px;
-  padding: 0px 30px;
+  padding: 0px 30px 0px 60px;
   font-size: 20px;
   color: #fff;
   background: rgba(0, 0, 0, 0.5);
@@ -166,6 +192,96 @@ body {
   .section1 .item-name.active {
     opacity: 1;
     z-index: 99999; }
+  .section1 .item-name i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    width: 24px;
+    height: 24px;
+    margin-top: -12px;
+    background-image: url(../images/xmjs1.png);
+    background-size: 24px 24px; }
+  .section1 .item-name:hover i {
+    background-image: url(../images/xmjs1_hover.png); }
+
+.section1 .wrap-right-2 {
+  position: absolute;
+  overflow: hidden;
+  z-index: 999;
+  opacity: 0;
+  transition: 0.1s;
+  width: 50%;
+  height: 100%;
+  top: 0;
+  right: 0; }
+  .section1 .wrap-right-2.active {
+    opacity: 1; }
+    .section1 .wrap-right-2.active .item-list-wrap {
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      right: 0px; }
+  .section1 .wrap-right-2 .item-list-wrap {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 50px;
+    right: 190px;
+    transition: 0.2s;
+    background: rgba(0, 0, 0, 0.5); }
+  .section1 .wrap-right-2 .item-list {
+    position: absolute;
+    left: 70px;
+    right: 40px;
+    top: 50%;
+    transform: translateY(-50%); }
+    .section1 .wrap-right-2 .item-list li {
+      float: left;
+      position: relative;
+      width: 162px;
+      height: 162px;
+      border-radius: 162px;
+      margin-right: 28px;
+      margin-bottom: 94px;
+      overflow: hidden;
+      cursor: pointer; }
+      .section1 .wrap-right-2 .item-list li img {
+        display: block;
+        width: 100%;
+        height: 100%; }
+
+.section1 .item-item {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 162px;
+  height: 162px;
+  border-radius: 162px;
+  overflow: hidden;
+  opacity: 0;
+  background: rgba(234, 85, 20, 0.7);
+  transition: 0.5s; }
+  .section1 .item-item:hover {
+    opacity: 1; }
+  .section1 .item-item h5 {
+    width: 110px;
+    height: 20px;
+    line-height: 20px;
+    margin: 28px auto 16px;
+    text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 16px;
+    color: #fff; }
+  .section1 .item-item span {
+    display: block;
+    width: 122px;
+    margin: 0 auto;
+    line-height: 18px;
+    font-size: 14px;
+    text-align: center;
+    color: #fff; }
 
 .section2 {
   background-image: url(../images/3.jpg);
@@ -183,16 +299,16 @@ body {
     font-size: 100px;
     color: #fff;
     transition: 1s;
-    transform: scale(0.2);
+    transform: translateY(-100px);
     opacity: 0; }
   .section2.active .about-left {
     transition-delay: 0.7s;
-    transform: scale(1);
+    transform: translateY(0px);
     opacity: 1; }
   .section2.active .about-content {
     opacity: 1;
     transform: translateY(0px);
-    transition-delay: 1s; }
+    transition-delay: 0.8s; }
   .section2 .about-right {
     position: absolute;
     top: 0;
@@ -200,21 +316,19 @@ body {
     width: 49%;
     height: 100%;
     padding-left: 72px;
-    padding-right: 100px;
+    padding-right: 90px;
     box-sizing: border-box;
     background: #fff;
-    overflow-y: auto; }
+    overflow: hidden; }
 
 .about-content {
   position: absolute;
   left: 72px;
   right: 100px;
   top: 10%;
-  bottom: 80px;
-  overflow-y: auto;
   opacity: 0;
-  transition: 1s;
-  transform: translateY(500px); }
+  transition: 0.5s;
+  transform: translateY(100px); }
   .about-content h3 {
     height: 40px;
     line-height: 40px;
