@@ -104,15 +104,17 @@ body {
     width: 30px;
     height: 30px;
     margin-left: 26px;
-    background-image: url(../images/menu_icon.png);
-    background-repeat: no-repeat;
-    cursor: pointer;
     user-select: none; }
-    .menu-list > ul li:hover span {
-      opacity: 1; }
+    .menu-list > ul li a {
+      display: block;
+      height: 30px;
+      background-image: url(../images/menu_icon.png);
+      background-repeat: no-repeat; }
+      .menu-list > ul li a:hover + span {
+        opacity: 1; }
     .menu-list > ul li span {
       position: absolute;
-      top: 34px;
+      top: 36px;
       left: 50%;
       margin-left: -16px;
       width: 32px;
@@ -124,29 +126,30 @@ body {
       font-size: 13px;
       color: #fff;
       opacity: 0;
-      transition: 0.3s; }
+      transition: 0.3s;
+      z-index: -9; }
       .menu-list > ul li span.span-4 {
         width: 60px;
         margin-left: -30px; }
 
-#navMenu1 {
+#navMenu1 a {
   background-position: 0px 0px; }
-  #navMenu1:hover {
+  #navMenu1 a:hover {
     background-position: 0px -40px; }
 
-#navMenu2 {
+#navMenu2 a {
   background-position: -40px 0px; }
-  #navMenu2:hover {
+  #navMenu2 a:hover {
     background-position: -40px -40px; }
 
-#navMenu3 {
+#navMenu3 a {
   background-position: -80px 0px; }
-  #navMenu3:hover {
+  #navMenu3 a:hover {
     background-position: -80px -40px; }
 
-#navMenu4 {
+#navMenu4 a {
   background-position: -120px 0px; }
-  #navMenu4:hover {
+  #navMenu4 a:hover {
     background-position: -120px -40px; }
 
 .section {
@@ -169,7 +172,7 @@ body {
   overflow: hidden;
   z-index: 999;
   opacity: 0;
-  transition: 0.3s; }
+  transition: 0.2s; }
   .section1 .wrap-right.active {
     right: 0px;
     bottom: 0px;
@@ -178,13 +181,18 @@ body {
     opacity: 1; }
     .section1 .wrap-right.active p {
       transition-delay: 0.3s; }
+    .section1 .wrap-right.active .item-detail {
+      opacity: 1;
+      transition-delay: 0.2s; }
   .section1 .wrap-right .item-detail {
     position: absolute;
     top: 26%;
     left: 66px;
     right: 144px;
     bottom: 80px;
-    color: #fff; }
+    color: #fff;
+    opacity: 0;
+    transition: 0.2s; }
     .section1 .wrap-right .item-detail h2 {
       height: 30px;
       line-height: 30px;
@@ -437,17 +445,31 @@ body {
       .news-list .news-item .new-info h5 {
         font-size: 16px;
         color: #333;
+        padding-top: 6px;
         padding-bottom: 8px;
         line-height: 20px;
         font-weight: bold; }
       .news-list .news-item .new-info span {
         display: block;
         font-size: 12px;
+        height: 16px;
+        line-height: 16px;
         color: #889FB0;
-        padding-bottom: 8px; }
+        padding-bottom: 8px;
+        padding-left: 22px;
+        position: relative; }
+        .news-list .news-item .new-info span i {
+          position: absolute;
+          left: 0px;
+          top: 0px;
+          width: 16px;
+          height: 16px;
+          background-image: url(../images/tiem_icon.png);
+          background-size: 20px 20px;
+          background-position: -2px -2px; }
       .news-list .news-item .new-info p {
         font-size: 14px;
-        line-height: 20px;
+        line-height: 22px;
         color: #333; }
 
 .news-detail {
@@ -478,17 +500,30 @@ body {
     -ms-text-size-adjust: none;
     -o-text-size-adjust: none;
     text-size-adjust: none; }
-    .news-detail #scroller > h2 {
+    .news-detail #scroller .article-title {
       font-size: 22px;
       margin-bottom: 20px;
       font-weight: bold;
       color: #333; }
-    .news-detail #scroller > span {
+    .news-detail #scroller .article-time {
       display: block;
       font-size: 12px;
+      height: 16px;
+      line-height: 16px;
+      padding-left: 22px;
       margin-bottom: 30px;
-      color: #889FB0; }
-    .news-detail #scroller > .news-content {
+      color: #889FB0;
+      position: relative; }
+      .news-detail #scroller .article-time i {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 16px;
+        height: 16px;
+        background-image: url(../images/tiem_icon.png);
+        background-size: 20px 20px;
+        background-position: -2px -2px; }
+    .news-detail #scroller .news-content {
       font-size: 14px;
       color: #333;
       line-height: 20px; }

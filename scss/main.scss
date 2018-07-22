@@ -46,18 +46,22 @@ body {
             width: 30px;
             height: 30px;
             margin-left: 26px;
-            background-image: url(../images/menu_icon.png);
-            background-repeat: no-repeat;
-            cursor: pointer;
             user-select: none;
-            &:hover {
-                span {
-                    opacity: 1;
+            a {
+                display: block;
+                height: 30px;
+                background-image: url(../images/menu_icon.png);
+                background-repeat: no-repeat;
+                &:hover {
+                    &+span {
+                        opacity: 1;
+                        //transform: translateY(0px);
+                    }
                 }
             }
             span {
                 position: absolute;
-                top: 34px;
+                top: 36px;
                 left: 50%;
                 margin-left: -16px;
                 width: 32px;
@@ -70,6 +74,8 @@ body {
                 color: #fff;
                 opacity: 0;
                 transition: 0.3s;
+                //transform: translateY(4px);
+                z-index: -9;
                 &.span-4 {
                     width: 60px;
                     margin-left: -30px;
@@ -78,25 +84,25 @@ body {
         }
     }
 }
-#navMenu1 {
+#navMenu1 a{
     background-position: 0px 0px;
     &:hover {
         background-position: 0px -40px;
     }
 }
-#navMenu2 {
+#navMenu2 a{
     background-position: -40px 0px;
     &:hover {
         background-position: -40px -40px;
     }
 }
-#navMenu3 {
+#navMenu3 a{
     background-position: -80px 0px;
     &:hover {
         background-position: -80px -40px;
     }
 }
-#navMenu4 {
+#navMenu4 a{
     background-position: -120px 0px;
     &:hover {
         background-position: -120px -40px;
@@ -126,7 +132,7 @@ body {
         overflow: hidden;
         z-index: 999;
         opacity: 0;
-        transition: 0.3s;
+        transition: 0.2s;
         &.active {
             right: 0px;
             bottom: 0px;
@@ -136,6 +142,10 @@ body {
             p {
                 transition-delay: 0.3s;
             }
+            .item-detail {
+                opacity: 1;
+                transition-delay: 0.2s;
+            }
         }
         .item-detail {
             position: absolute;
@@ -144,6 +154,8 @@ body {
             right: 144px;
             bottom: 80px;
             color: #fff;
+            opacity: 0;
+            transition: 0.2s;
             h2 {
                 height: 30px;
                 line-height: 30px;
@@ -396,7 +408,7 @@ body {
     margin-left: -620px;
     .news-item {
         width:538px;
-        height:162px;
+        height: 162px;
         margin-bottom: 32px;
         border: #f90;
         box-shadow:0px 2px 8px 0px rgba(145,193,226,0.39);
@@ -435,10 +447,10 @@ body {
         .new-info {
             overflow: hidden;
             padding-left: 8px;
-
             h5 {
                 font-size: 16px;
                 color: #333;
+                padding-top: 6px;
                 padding-bottom: 8px;
                 line-height: 20px;
                 font-weight: bold;
@@ -447,12 +459,26 @@ body {
             span {
                 display: block;
                 font-size: 12px;
+                height: 16px;
+                line-height: 16px;
                 color: #889FB0;
                 padding-bottom: 8px;
+                padding-left: 22px;
+                position: relative;
+                i {
+                    position: absolute;
+                    left: 0px;
+                    top: 0px;
+                    width: 16px;
+                    height: 16px;
+                    background-image: url(../images/tiem_icon.png);
+                    background-size: 20px 20px;
+                    background-position: -2px -2px;
+                }
             }
             p {
                 font-size: 14px;
-                line-height: 20px;
+                line-height: 22px;
                 color: #333;
             }
         }
@@ -486,19 +512,33 @@ body {
         -ms-text-size-adjust: none;
         -o-text-size-adjust: none;
         text-size-adjust: none;
-        &>h2 {
+        .article-title {
             font-size: 22px;
             margin-bottom: 20px;
             font-weight: bold;
             color: #333;
         }
-        &>span {
+        .article-time {
             display: block;
             font-size: 12px;
+            height: 16px;
+            line-height: 16px;
+            padding-left: 22px;
             margin-bottom: 30px;
             color: #889FB0;
+            position: relative;
+            i {
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 16px;
+                height: 16px;
+                background-image: url(../images/tiem_icon.png);
+                background-size: 20px 20px;
+                background-position: -2px -2px;
+            }
         }
-        &>.news-content {
+        .news-content {
             font-size: 14px;
             color: #333;
             line-height: 20px;
