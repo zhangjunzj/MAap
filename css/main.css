@@ -134,22 +134,22 @@ body {
 
 #navMenu1 a {
   background-position: 0px 0px; }
-  #navMenu1 a:hover {
+  #navMenu1 a:hover, #navMenu1 a.active {
     background-position: 0px -40px; }
 
 #navMenu2 a {
   background-position: -40px 0px; }
-  #navMenu2 a:hover {
+  #navMenu2 a:hover, #navMenu2 a.active {
     background-position: -40px -40px; }
 
 #navMenu3 a {
   background-position: -80px 0px; }
-  #navMenu3 a:hover {
+  #navMenu3 a:hover, #navMenu3 a.active {
     background-position: -80px -40px; }
 
 #navMenu4 a {
   background-position: -120px 0px; }
-  #navMenu4 a:hover {
+  #navMenu4 a:hover, #navMenu4 a.active {
     background-position: -120px -40px; }
 
 .section {
@@ -327,7 +327,7 @@ body {
     width: 122px;
     margin: 0 auto;
     line-height: 18px;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     color: #fff; }
 

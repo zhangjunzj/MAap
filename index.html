@@ -11,7 +11,7 @@
 </head>
 <body>
 	<!-- logo -->
-	<div id="logoEl" class="logo">MAap<i></i></div>
+	<div id="logoEl" class="logo"><i></i></div>
 	<!-- menu -->
 	<div id="menuEl" class="menu-list">
 		<ul>
@@ -96,7 +96,7 @@
 		</div>
 		<div class="section section2">
 			<div class="wrap"></div>
-			<span class="about-left">about us</span>
+			<span class="about-left">ABOUT US</span>
 				<div class="about-right">
 					<div class="about-content">
 						<h3>公司简介</h3>
@@ -185,12 +185,13 @@
 				afterRender: function() {
 					var mySwiper = $('.swiper-container').swiper({
 						loop: true,
-						autoplay: 3000,// 自动滑动
+						autoplay: 5000,// 自动滑动
 						simulateTouch: false, // 鼠标点击、拖动
 						speed: 500
 					});
-					$.get('http://192.168.1.109/admin/test.php', function(data){
+					$.post('http://192.168.1.109/admin/login.php',{username: 'admin', pwd: '123456'}, function(data){
 						console.log(data);
+
 					});
 				}
 			});
@@ -206,6 +207,11 @@
 			});
 			
 			// 菜单按钮点击事件
+			$('#menuEl').children('ul').children('li').bind('click', function() {
+				$(this).parent().find('a').removeClass('active');
+				$(this).children('a').addClass('active');
+			});
+
 			$('#navMenu1').click(function() {
 				$('#itemDetail, #itemList').removeClass('active');
 				$('#openItemBtn').addClass('active');
