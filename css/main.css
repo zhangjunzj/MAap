@@ -417,9 +417,11 @@ body {
     box-sizing: border-box;
     cursor: pointer;
     border: 1px solid transparent;
-    opacity: 1; }
+    opacity: 1;
+    transform: translateY(0px);
+    transition: 0.5s; }
     .news-list .news-item:hover {
-      transition: 0.2s;
+      transform: translateY(-2px);
       box-shadow: 0px 5px 24px 0px rgba(145, 193, 226, 0.39); }
     .news-list .news-item.active {
       border: 1px solid #036eb8;

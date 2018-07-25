@@ -189,7 +189,7 @@
 						simulateTouch: false, // 鼠标点击、拖动
 						speed: 500
 					});
-					$.post('http://192.168.1.109/admin/login.php',{username: 'admin', pwd: '123456'}, function(data){
+					$.post('http://192.168.1.109/admin/item.php?action=add',{i_title: 'test', i_introduce: 'testffdfds'}, function(data){
 						console.log(data);
 
 					});
