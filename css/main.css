@@ -134,22 +134,22 @@ body {
 
 #navMenu1 a {
   background-position: 0px 0px; }
-  #navMenu1 a:hover, #navMenu1 a.active {
+  #navMenu1 a:hover, #navMenu1 a.selected {
     background-position: 0px -40px; }
 
 #navMenu2 a {
   background-position: -40px 0px; }
-  #navMenu2 a:hover, #navMenu2 a.active {
+  #navMenu2 a:hover, #navMenu2 a.selected {
     background-position: -40px -40px; }
 
 #navMenu3 a {
   background-position: -80px 0px; }
-  #navMenu3 a:hover, #navMenu3 a.active {
+  #navMenu3 a:hover, #navMenu3 a.selected {
     background-position: -80px -40px; }
 
 #navMenu4 a {
   background-position: -120px 0px; }
-  #navMenu4 a:hover, #navMenu4 a.active {
+  #navMenu4 a:hover, #navMenu4 a.selected {
     background-position: -120px -40px; }
 
 .section {
@@ -220,7 +220,7 @@ body {
     .section1 .wrap-right .item-detail p {
       line-height: 48px;
       font-size: 16px;
-      font-weight: lighter; }
+      font-weight: 300; }
 
 .section1 .item-name {
   position: absolute;
@@ -278,32 +278,35 @@ body {
     transition: 0.2s;
     background: rgba(0, 0, 0, 0.5); }
   .section1 .wrap-right-2 .item-list {
-    position: absolute;
-    left: 70px;
-    right: 40px;
-    top: 50%;
-    transform: translateY(-50%); }
+    margin: 30px;
+    overflow: hidden;
+    margin-top: 160px; }
     .section1 .wrap-right-2 .item-list li {
       float: left;
       position: relative;
       width: 162px;
       height: 162px;
-      border-radius: 162px;
-      margin-right: 28px;
-      margin-bottom: 94px;
+      width: 33.33%;
+      margin-bottom: 80px;
       overflow: hidden;
       cursor: pointer; }
       .section1 .wrap-right-2 .item-list li img {
         display: block;
-        width: 100%;
-        height: 100%; }
+        position: absolute;
+        border-radius: 162px;
+        width: 162px;
+        height: 162px;
+        top: 0px;
+        left: 50%;
+        margin-left: -81px; }
 
 .section1 .item-item {
   position: absolute;
-  left: 0;
-  top: 0;
   width: 162px;
   height: 162px;
+  top: 0px;
+  left: 50%;
+  margin-left: -81px;
   border-radius: 162px;
   overflow: hidden;
   opacity: 0;
@@ -373,9 +376,8 @@ body {
   position: absolute;
   left: 72px;
   right: 100px;
-  top: 10%;
+  top: 15%;
   opacity: 1;
-  transition: 0.5s;
   transform: translateY(0px); }
   .about-content h3 {
     height: 40px;
@@ -405,12 +407,12 @@ body {
 
 .news-list {
   position: absolute;
+  height: 100%;
   left: 50%;
   margin-left: -620px; }
   .news-list .news-item {
     width: 538px;
     height: 162px;
-    margin-bottom: 32px;
     border: #f90;
     box-shadow: 0px 2px 8px 0px rgba(145, 193, 226, 0.39);
     padding: 16px;
@@ -426,6 +428,15 @@ body {
     .news-list .news-item.active {
       border: 1px solid #036eb8;
       box-shadow: 0px 5px 24px 0px rgba(145, 193, 226, 0.39); }
+    .news-list .news-item.news-item2 {
+      position: absolute;
+      left: 0px;
+      top: 50%;
+      margin-top: -81px; }
+    .news-list .news-item.news-item3 {
+      position: absolute;
+      left: 0px;
+      bottom: 0px; }
     .news-list .news-item .img {
       width: 130px;
       height: 130px;
@@ -529,6 +540,49 @@ body {
       font-size: 14px;
       color: #333;
       line-height: 20px; }
+      .news-detail #scroller .news-content img {
+        width: 100%; }
 
 .section3.active .news-item {
   opacity: 1; }
+
+/* 媒体查询 */
+@media only screen and (max-width: 1200px) {
+  .about-content {
+    left: 36px !important;
+    right: 40px !important;
+    top: 12% !important; }
+    .about-content p {
+      margin-bottom: 40px; }
+    .about-content .p-2 {
+      margin-bottom: 20px; } }
+
+@media (min-width: 1200px) and (max-width: 1300px) {
+  .about-content {
+    left: 44px !important;
+    right: 50px !important;
+    top: 12% !important; }
+    .about-content p {
+      margin-bottom: 40px; }
+    .about-content .p-2 {
+      margin-bottom: 20px; } }
+
+@media (min-width: 1300px) and (max-width: 1400px) {
+  .about-content {
+    left: 58px !important;
+    right: 68px !important;
+    top: 13% !important; }
+    .about-content p {
+      margin-bottom: 40px; }
+    .about-content .p-2 {
+      margin-bottom: 20px; } }
+
+@media (min-width: 1400px) and (max-width: 1500px) {
+  .about-content {
+    left: 60px !important;
+    right: 70px !important;
+    top: 14% !important; }
+    .about-content p {
+      margin-bottom: 40px; }
+    .about-content .p-2 {
+      margin-bottom: 20px; } }
