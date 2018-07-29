@@ -508,7 +508,7 @@ body {
     position: absolute;
     width: 626px;
     height: 100%;
-    padding-top: 90px;
+    padding-top: 80px;
     left: 50%;
     overflow: hidden;
     box-sizing: border-box;
@@ -517,8 +517,9 @@ body {
         left: 0px;
         top: 0px;
         width: 100%;
-        height: 90;
-        background: #ddd;
+        height: 80px;
+        //background: #fff;
+        z-index: 99999;
         .article-title {
             font-size: 22px;
             margin-bottom: 20px;
@@ -546,38 +547,46 @@ body {
             }
         }
     }
-    #scroller {
-        padding-right: 10px;
-        box-sizing: border-box;
+    .news-content {
         position: absolute;
-        z-index: 1;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
-        width: 100%;
-        -webkit-transform: translateZ(0);
-        -moz-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        -o-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-text-size-adjust: none;
-        -moz-text-size-adjust: none;
-        -ms-text-size-adjust: none;
-        -o-text-size-adjust: none;
-        text-size-adjust: none;
-        
-        .news-content {
-            font-size: 14px;
-            color: #333;
-            line-height: 20px;
-            img{
-                width: 100%;
-            }
+        top: 80px;
+        left: 0px;
+        right: 0px;
+        bottom: 0px;
+        font-size: 14px;
+        color: #333;
+        line-height: 20px;
+        overflow: hidden;
+        img{
+            width: 100%;
+        }
+        #scroller {
+            padding-right: 10px;
+            box-sizing: border-box;
+            position: absolute;
+            z-index: 1;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            width: 100%;
+            -webkit-transform: translateZ(0);
+            -moz-transform: translateZ(0);
+            -ms-transform: translateZ(0);
+            -o-transform: translateZ(0);
+            transform: translateZ(0);
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-text-size-adjust: none;
+            -moz-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            -o-text-size-adjust: none;
+            text-size-adjust: none;
+            
+            
         }
     }
+    
 }
 
 .section3 {
