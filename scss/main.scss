@@ -508,30 +508,17 @@ body {
     position: absolute;
     width: 626px;
     height: 100%;
+    padding-top: 90px;
     left: 50%;
     overflow: hidden;
-    #scroller {
-        padding-right: 10px;
-        box-sizing: border-box;
+    box-sizing: border-box;
+    .article-header {
         position: absolute;
-        z-index: 1;
-        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        left: 0px;
+        top: 0px;
         width: 100%;
-        -webkit-transform: translateZ(0);
-        -moz-transform: translateZ(0);
-        -ms-transform: translateZ(0);
-        -o-transform: translateZ(0);
-        transform: translateZ(0);
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        -webkit-text-size-adjust: none;
-        -moz-text-size-adjust: none;
-        -ms-text-size-adjust: none;
-        -o-text-size-adjust: none;
-        text-size-adjust: none;
+        height: 90;
+        background: #ddd;
         .article-title {
             font-size: 22px;
             margin-bottom: 20px;
@@ -558,6 +545,30 @@ body {
                 background-position: -2px -2px;
             }
         }
+    }
+    #scroller {
+        padding-right: 10px;
+        box-sizing: border-box;
+        position: absolute;
+        z-index: 1;
+        -webkit-tap-highlight-color: rgba(0,0,0,0);
+        width: 100%;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-text-size-adjust: none;
+        -moz-text-size-adjust: none;
+        -ms-text-size-adjust: none;
+        -o-text-size-adjust: none;
+        text-size-adjust: none;
+        
         .news-content {
             font-size: 14px;
             color: #333;

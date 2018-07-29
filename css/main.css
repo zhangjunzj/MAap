@@ -489,8 +489,40 @@ body {
   position: absolute;
   width: 626px;
   height: 100%;
+  padding-top: 90px;
   left: 50%;
-  overflow: hidden; }
+  overflow: hidden;
+  box-sizing: border-box; }
+  .news-detail .article-header {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 90;
+    background: #ddd; }
+    .news-detail .article-header .article-title {
+      font-size: 22px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #333; }
+    .news-detail .article-header .article-time {
+      display: block;
+      font-size: 12px;
+      height: 16px;
+      line-height: 16px;
+      padding-left: 22px;
+      margin-bottom: 30px;
+      color: #889FB0;
+      position: relative; }
+      .news-detail .article-header .article-time i {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        width: 16px;
+        height: 16px;
+        background-image: url(../images/tiem_icon.png);
+        background-size: 20px 20px;
+        background-position: -2px -2px; }
   .news-detail #scroller {
     padding-right: 10px;
     box-sizing: border-box;
@@ -513,29 +545,6 @@ body {
     -ms-text-size-adjust: none;
     -o-text-size-adjust: none;
     text-size-adjust: none; }
-    .news-detail #scroller .article-title {
-      font-size: 22px;
-      margin-bottom: 20px;
-      font-weight: bold;
-      color: #333; }
-    .news-detail #scroller .article-time {
-      display: block;
-      font-size: 12px;
-      height: 16px;
-      line-height: 16px;
-      padding-left: 22px;
-      margin-bottom: 30px;
-      color: #889FB0;
-      position: relative; }
-      .news-detail #scroller .article-time i {
-        position: absolute;
-        left: 0px;
-        top: 0px;
-        width: 16px;
-        height: 16px;
-        background-image: url(../images/tiem_icon.png);
-        background-size: 20px 20px;
-        background-position: -2px -2px; }
     .news-detail #scroller .news-content {
       font-size: 14px;
       color: #333;
