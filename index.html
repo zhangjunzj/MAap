@@ -38,42 +38,42 @@
 					<li>
 						<img src="./images/1.jpg" alt="">
 						<div class="item-item">
-							<h5>花园小屋</h5>
+							<h5>花园小屋1</h5>
 							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
 						</div>
 					</li>
 					<li>
 						<img src="./images/2.jpg" alt="">
 						<div class="item-item">
-							<h5>花园小屋</h5>
+							<h5>花园小屋2</h5>
 							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
 						</div>
 					</li>
 					<li>
 						<img src="./images/3.jpg" alt="">
 						<div class="item-item">
-							<h5>花园小屋</h5>
+							<h5>花园小屋3</h5>
 							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
 						</div>
 					</li>
 					<li>
 						<img src="./images/4.jpg" alt="">
 						<div class="item-item">
-							<h5>花园小屋</h5>
+							<h5>花园小屋4</h5>
 							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
 						</div>
 					</li>
 					<li>
 						<img src="./images/5.jpg" alt="">
 						<div class="item-item">
-							<h5>花园小屋</h5>
+							<h5>花园小屋5</h5>
 							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
 						</div>
 					</li>
 					<li>
 						<img src="./images/8.jpg" alt="">
 						<div class="item-item">
-							<h5>花园小屋</h5>
+							<h5>花园小屋6</h5>
 							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
 						</div>
 					</li>
@@ -180,9 +180,10 @@
 				anchors: ['page1', 'page2', 'page3'],
 				menu: '#menuEl',
 				afterLoad: function(anchorLink, index) {
-					console.log(anchorLink, index);
+					console.log(anchorLink, index)
 				},
 				onLeave: function(index, nextIndex, direction) {
+					
 					$('#menuEl').find('a').removeClass('selected');
 					if (!(nextIndex===1 && !$('#itemList').hasClass('active'))) {
 						nextIndex += 1;
@@ -191,6 +192,7 @@
 					$('#navMenu'+ nextIndex).children('a').addClass('selected');
 				},
 				afterRender: function() {
+					$('#navMenu1').children('a').addClass('selected');
 					var mySwiper = $('.swiper-container').swiper({
 						loop: true,
 						autoplay: 5000,// 自动滑动
@@ -222,12 +224,8 @@
 			});
 
 			$('#navMenu2').click(function() {
-				$("#itemList").toggleClass("active");
-				if ($('#itemList').hasClass('active')) {
-					$('#openItemBtn, #itemDetail').removeClass('active');
-				} else {
-					$('#openItemBtn').addClass('active');
-				}
+				$("#itemList").addClass("active");
+				$('#openItemBtn, #itemDetail').removeClass('active');
 			});
 	
 
@@ -252,6 +250,11 @@
 				setTimeout(function () {
 					myScroll.refresh();
 				}, 0);
+			});
+
+			$('#itemList').on('click', ' li', function() {
+				$("#itemList").removeClass("active");
+				$('#openItemBtn').html('<i></i>花园小屋'+ ($(this).index()+1)).addClass('active');
 			});
 			
 		});
