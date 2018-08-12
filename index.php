@@ -1,9 +1,58 @@
+<?php 
+
+	require "../admin/extends/config.php";
+	require "../admin/extends/Model.class.php";
+	
+
+	$itemModel = new Model("m_itemlist");
+	$imageModel = new Model("item_imgs");
+	$newsModel = new Model("m_newslist");
+
+	$itemList = $itemModel->select();
+	$itemList = array_reverse($itemList);
+	$length = $newsModel->count();
+	if ($length > 3) {
+		$newsList = $newsModel->limit($length-3, $length)->select();
+	} else {
+		$newsList = $newsModel->select();
+	}
+		
+	if ($newsList) {
+		$firstNews = $newsList[0];
+		foreach ($newsList as $key => $value) {
+			$value['content'] = mb_substr($value['content'], 0, 50,'UTF-8');
+			$newsList[$key] = $value;
+		}
+		$newsList = array_reverse($newsList);
+	}
+
+	// 项目列表不可为空
+	foreach ($itemList as $key => $value) {
+		$image = $imageModel->where("item_id={$value['i_id']}")->limit(0,1)->select();
+		$value['url'] = '../admin/images/'.$image[0]['path'].$image[0]['url'];
+		if (strlen($value['i_introduce']) > 60) {
+			$value['shot_introduce'] = mb_substr($value['i_introduce'], 0, 30,'UTF-8').'...';
+		} else {
+			$value['shot_introduce'] = $value['i_introduce'];
+		}
+		$itemList[$key] = $value;
+	}
+	// 查询第一个项目banner图片
+	$images = $imageModel->where("item_id={$itemList[0]['i_id']}")->select();
+	foreach ($images as $key => $value) {
+		$url = '../admin/images/'.$value['path'].$value['url'];
+		$banners[] = $url;
+	}
+
+ ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>MAap官网</title>
+	<title>MAap-墨璞建筑设计官网</title>
+
 	<link rel="stylesheet" href="./lib/fullpage/dist/jquery.fullpage.min.css">
 	<link rel="stylesheet" href="./lib/swiper/dist/idangerous.swiper.css">
 	<link rel="stylesheet" href="./css/main.css">
@@ -25,73 +74,41 @@
 		<div class="section section1">
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
-					<div class="swiper-slide"><img src="./images/1.jpg" alt=""></div>
-					<div class="swiper-slide"><img src="./images/2.jpg" alt=""></div>
-					<div class="swiper-slide"><img src="./images/3.jpg" alt=""></div>
-					<div class="swiper-slide"><img src="./images/4.jpg" alt=""></div>
-					<div class="swiper-slide"><img src="./images/5.jpg" alt=""></div>
+					<?php foreach($banners as $item):?>
+						<div class="swiper-slide"><img src="<?=$item?>" alt=""></div>
+					<?php endforeach; ?>
 				</div>
 			</div>
 			<div id="itemList" class="wrap-right-2">
 				<div class="item-list-wrap"></div>
-				<ul class="item-list">
-					<li>
-						<img src="./images/1.jpg" alt="">
-						<div class="item-item">
-							<h5>花园小屋1</h5>
-							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
-						</div>
-					</li>
-					<li>
-						<img src="./images/2.jpg" alt="">
-						<div class="item-item">
-							<h5>花园小屋2</h5>
-							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
-						</div>
-					</li>
-					<li>
-						<img src="./images/3.jpg" alt="">
-						<div class="item-item">
-							<h5>花园小屋3</h5>
-							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
-						</div>
-					</li>
-					<li>
-						<img src="./images/4.jpg" alt="">
-						<div class="item-item">
-							<h5>花园小屋4</h5>
-							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
-						</div>
-					</li>
-					<li>
-						<img src="./images/5.jpg" alt="">
-						<div class="item-item">
-							<h5>花园小屋5</h5>
-							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
-						</div>
-					</li>
-					<li>
-						<img src="./images/8.jpg" alt="">
-						<div class="item-item">
-							<h5>花园小屋6</h5>
-							<span>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会…</span>
-						</div>
-					</li>
-				</ul>
+				<div id="itemListScroll" class="item-list">
+					<ul  >
+						<!-- 项目列表 -->
+						<?php foreach($itemList as $item):?>
+							<li data-id="<?=$item['i_id']?>">
+								<img src="<?=$item['url']?>" alt="">
+								<div class="item-item">
+									<h5><?=$item['i_title']?></h5>
+									<span><?=$item['shot_introduce']?></span>
+								</div>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</div>
 			</div>
 			<div id="itemDetail" class="wrap-right">
 				<div class="item-detail">
 					<h2>
-						花园小屋
+						<?=$itemList[0]['i_title']?>
 						<span id="closeItemBtn"></span>
 					</h2>
 					<h3>Project Introduction</h3>
-					<p>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。奥运会后成为北京市民参与体育活动及享受体育娱乐的大型专业场所，并成为地标性的体育建筑和奥运遗产。</p>
+					<p><?=$itemList[0]['i_introduce']?></p>
 				</div>
 			</div>
 			<div id="openItemBtn" class="item-name active">
 				<i></i>
-				花园小屋
+				<?=$itemList[0]['i_title']?>
 			</div>
 		</div>
 		<div class="section section2">
@@ -113,38 +130,22 @@
 			<div class="wrap"></div>
 			<div class="wrap-center">
 				<div class="news-list">
-					<div class="news-item news-item1 active">
+					<?php foreach($newsList as $key => $item):?>
+					<div class="news-item news-item<?=$key+1?> <?= $key==0 ? 'active' : ''?>">
 						<div class="img">
-							<img src="./images/1.jpg" alt="花园小屋的故事">
+							<img src="<?=$item['icon']?>" alt="<?=$item['title']?>">
 						</div>
 						<div class="new-info">
-							<h5>花园小屋的故事1</h5>
-							<span>2018/06/12<i></i></span>
-							<p>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐国家体育场位于北京奥林匹克公园中心区南部…</p>
+							<h5><?=$item['title']?></h5>
+							<span><?=$item['addtime']?><i></i></span>
+							<p><?=$item['content']?></p>
 						</div>
 					</div>
-					<div class="news-item news-item2">
-						<div class="img">
-							<img src="./images/2.jpg" alt="花园小屋的故事">
-						</div>
-						<div class="new-info">
-							<h5>花园小屋的故事2</h5>
-							<span>2018/06/12<i></i></span>
-							<p>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐国家体育场位于北京奥林匹克公园中心区南部…</p>
-						</div>
-					</div>
-					<div class="news-item news-item3">
-						<div class="img">
-							<img src="./images/3.jpg" alt="花园小屋的故事">
-						</div>
-						<div class="new-info">
-							<h5>花园小屋的故事3</h5>
-							<span>2018/06/12<i></i></span>
-							<p>国家体育场位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐国家体育场位于北京奥林匹克公园中心区南部…</p>
-						</div>
-					</div>
+					<?php endforeach; ?>
+
 				</div>
 				<div id="newDetail" class="news-detail">
+
 					<div class="article-header">
 						<h2 class="article-title">花园小屋的故事1</h2>
 						<span class="article-time">2018/06/12<i></i></span>
@@ -155,6 +156,7 @@
 							国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。<br>国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。<br>国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。<br>国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。<br>国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。<br><img src="./images/1.jpg">国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。国家体育场位于北京奥林匹克公园中心区南部，位于北京奥林匹克公园中心区南部，为2008年北京奥运会的主体育场。工程总占地面积21公顷，场内观众坐席约为91000个。举行了奥运会、残奥会开闭幕式、田径比赛及足球比赛决赛。
 						</div>
 					</div>
+					
 				</div>
 			</div>
 			
@@ -169,6 +171,11 @@
 
 	<script>
 		$(function() {
+			// 样式
+			var windowHeight = $(window).height();
+			$('#itemListScroll').height(windowHeight-200);
+
+
 			$('#mainEL').fullpage({
 				css3: false,
 				scrollingSpeed: 700,
@@ -193,11 +200,19 @@
 				},
 				afterRender: function() {
 					$('#navMenu1').children('a').addClass('selected');
-					var mySwiper = $('.swiper-container').swiper({
+					window.mySwiper = $('.swiper-container').swiper({
 						loop: true,
 						autoplay: 5000,// 自动滑动
 						simulateTouch: false, // 鼠标点击、拖动
 						speed: 500
+					});
+
+					var itemLlistScroll = new IScroll('#itemListScroll', {
+						scrollbars: true,
+						mouseWheel: true,
+						interactiveScrollbars: true,
+						shrinkScrollbars: 'scale',
+						fadeScrollbars: true
 					});
 				}
 			});
@@ -253,9 +268,38 @@
 			});
 
 			$('#itemList').on('click', ' li', function() {
-				$("#itemList").removeClass("active");
-				$('#openItemBtn').html('<i></i>花园小屋'+ ($(this).index()+1)).addClass('active');
+				$.ajax({
+					type: 'post',
+					url: 'http://192.168.1.102/admin/query.php?action=queryitem',
+					data: {id: $(this).attr('data-id')},
+					dataType: 'json',
+					success: function(resp) {
+						if (resp.code == 1) {
+							$("#itemList").removeClass("active");
+							var dataObj = resp.data || {}
+							$('#openItemBtn').html('<i></i>' + dataObj.i_title).addClass('active');
+							$('#itemDetail').children('.item-detail').children('h2').html(dataObj.i_title).end().children('p').html(dataObj.i_introduce);
+							// 组装slider
+							mySwiper.removeAllSlides();
+							for (i=0; i<dataObj.images.length; i++) {
+								 var slide = '<img src="'+ dataObj.images[i]['url'] +'">';
+								 mySwiper.appendSlide(slide);
+							}
+
+						} else {
+							console.log('error');
+						}
+					},
+					error: function(err) {
+						console.log(error);
+					}
+				})
 			});
+
+			function http(params) {
+
+
+			}
 			
 		});
 	</script>

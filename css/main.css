@@ -281,6 +281,8 @@ body {
     margin: 30px;
     overflow: hidden;
     margin-top: 160px; }
+    .section1 .wrap-right-2 .item-list ul {
+      overflow: hidden; }
     .section1 .wrap-right-2 .item-list li {
       float: left;
       position: relative;
