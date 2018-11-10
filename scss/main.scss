@@ -51,8 +51,9 @@ body {
             a {
                 display: block;
                 height: 30px;
-                background-image: url(../images/menu_icon.png);
+                background-image: url(../images/menu_icon@2x.png);
                 background-repeat: no-repeat;
+                background-size: 150px 71px;
                 &:hover {
                     &+span {
                         opacity: 1;

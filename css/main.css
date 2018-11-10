@@ -108,8 +108,9 @@ body {
     .menu-list > ul li a {
       display: block;
       height: 30px;
-      background-image: url(../images/menu_icon.png);
-      background-repeat: no-repeat; }
+      background-image: url(../images/menu_icon@2x.png);
+      background-repeat: no-repeat;
+      background-size: 150px 71px; }
       .menu-list > ul li a:hover + span {
         opacity: 1; }
     .menu-list > ul li span {
