@@ -1,7 +1,7 @@
 <?php 
 
-	require "../admin/extends/config.php";
-	require "../admin/extends/Model.class.php";
+	require "./admin/extends/config.php";
+	require "./admin/extends/Model.class.php";
 	
 
 	$itemModel = new Model("m_itemlist");
@@ -23,7 +23,7 @@
 		$firstNews = $newsList[0];
 		foreach ($newsList as $key => $value) {
 			$icon = $iconModel->where("news_id={$value['id']}")->limit(0, 1)->select();
-			$value['icon'] = '../admin/images/'.$icon[0]['path'].$icon[0]['url'];
+			$value['icon'] = './admin/images/'.$icon[0]['path'].$icon[0]['url'];
 			if (strlen($value['text']) > 60) {
 				$value['text'] = mb_substr($value['text'], 0, 76,'UTF-8').'...';
 			}
@@ -36,7 +36,7 @@
 	// 项目列表不可为空
 	foreach ($itemList as $key => $value) {
 		$image = $imageModel->where("item_id={$value['i_id']}")->limit(0,1)->select();
-		$value['url'] = '../admin/images/'.$image[0]['path'].$image[0]['url'];
+		$value['url'] = './admin/images/'.$image[0]['path'].$image[0]['url'];
 		if (strlen($value['i_introduce']) > 60) {
 			$value['shot_introduce'] = mb_substr($value['i_introduce'], 0, 30,'UTF-8').'...';
 		} else {
@@ -48,7 +48,7 @@
 	if (!empty($itemList)) {
 		$images = $imageModel->where("item_id={$itemList[0]['i_id']}")->select();
 		foreach ($images as $key => $value) {
-			$url = '../admin/images/'.$value['path'].$value['url'];
+			$url = './admin/images/'.$value['path'].$value['url'];
 			$banners[] = $url;
 		}
 	}
@@ -67,7 +67,7 @@
 	<link rel="stylesheet" href="./css/main.css">
 	<link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
-<body>
+<body style="display: none;">
 	<!-- logo -->
 	<div id="logoEl" class="logo"><i></i></div>
 	<!-- menu -->
@@ -134,7 +134,7 @@
 						<h3>联系我们</h3>
 						<h5>contact us</h5>
 						<p class="p-2">地址：上海市嘉定区安亭新镇安礼路21号105<br>电话：021-1234567<br>邮箱：00000@maap.com </p>
-						<div>—— MAaP</div>
+						<!-- <div>—— MAaP</div> -->
 					</div>
 				</div>
 		</div>
@@ -180,6 +180,7 @@
 	<script src="./lib/iscroll/build/iscroll.js"></script>
 
 	<script>
+		var baseUrl = 'http://www.metaal.cn/admin/';
 		$(function() {
 			// 样式
 			var windowHeight = $(window).height();
@@ -224,6 +225,7 @@
 						shrinkScrollbars: 'scale',
 						fadeScrollbars: true
 					});
+					$('body').show();
 				}
 			});
 
@@ -273,7 +275,7 @@
 				$(this).addClass('active').siblings().removeClass('active');
 				$.ajax({
 					type: 'post',
-					url: 'http://192.168.1.102/admin/query.php?action=querynews',
+					url: baseUrl + 'query.php?action=querynews',
 					data: {id: $(this).attr('data-id')},
 					dataType: 'json',
 					success: function(resp) {
@@ -304,7 +306,7 @@
 				var loading = showLoading($(this).parent())
 				$.ajax({
 					type: 'post',
-					url: 'http://192.168.1.102/admin/query.php?action=queryitem',
+					url: baseUrl + 'query.php?action=queryitem',
 					data: {id: $(this).parent().attr('data-id')},
 					dataType: 'json',
 					success: function(resp) {
@@ -316,7 +318,7 @@
 							// 组装slider
 							mySwiper.removeAllSlides();
 							for (i=0; i<dataObj.images.length; i++) {
-								 var slide = '<img src="'+ dataObj.images[i]['url'] +'">';
+								 var slide = '<img src="/admin/'+ dataObj.images[i]['url'] +'">';
 								 mySwiper.appendSlide(slide);
 							}
 
