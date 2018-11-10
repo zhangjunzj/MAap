@@ -15,28 +15,29 @@ body {
 .logo {
     position: fixed;
     top: 44px;
-    left: 50px;
+    right: 300px;
     width:61px;
-    height:40px;
+    height:24px;
     font-size:22px;
     color:rgba(234,85,20,1);
-    line-height:30px;
+    line-height:24px;
     padding-left: 34px;
     z-index: 99999;
     i {
         position: absolute;
         left: 0px;
         top: 0px;
-        width: 133px;
-        height: 40px;
-        background-image: url(../images/logo2.png);
-        background-size: 133px 40px;
+        width: 74px;
+        height: 22px;
+        background-image: url(../images/logo@2x.png);
+        background-size: 74px 22px;
+        background-repeat:no-repeat;
     }
 }
 
 .menu-list {
     position: fixed;
-    top: 50px;
+    top: 40px;
     right: 100px;
     z-index: 99999;
     &>ul {
@@ -45,7 +46,7 @@ body {
             position: relative;
             width: 30px;
             height: 30px;
-            margin-left: 26px;
+            margin-left: 22px;
             user-select: none;
             a {
                 display: block;
