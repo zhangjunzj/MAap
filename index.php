@@ -84,7 +84,9 @@
 			<div class="swiper-container">
 				<div class="swiper-wrapper">
 					<?php foreach($banners as $item):?>
-						<div class="swiper-slide"><img src="<?=$item?>" alt=""></div>
+						<div class="swiper-slide">
+							<div class="banner-inner-item" style="background-image: url(<?=$item?>);"></div>
+						</div>
 					<?php endforeach; ?>
 				</div>
 			</div>
@@ -316,7 +318,7 @@
 							// 组装slider
 							mySwiper.removeAllSlides();
 							for (i=0; i<dataObj.images.length; i++) {
-								 var slide = '<img src="'+ dataObj.images[i]['url'] +'">';
+								 var slide = '<div class="banner-inner-item" style="background-image: url('+ dataObj.images[i]['url'] +');"></div>';
 								 mySwiper.appendSlide(slide);
 							}
 
