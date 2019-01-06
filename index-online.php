@@ -182,7 +182,7 @@
 	<script src="./lib/iscroll/build/iscroll.js"></script>
 
 	<script>
-		var baseUrl = 'http://www.metaal.cn/admin/';
+		var baseUrl = 'http://www.maapoffice.com/admin/';
 		$(function() {
 			// 样式
 			var windowHeight = $(window).height();

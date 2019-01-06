@@ -8,6 +8,7 @@
 	$imageModel = new Model("item_imgs");
 	$newsModel = new Model("m_newslist");
 	$iconModel = new Model("news_imgs");
+	$aboutModel = new Model("m_about");
 
 	$itemList = $itemModel->select();
 	$itemList = array_reverse($itemList);
@@ -53,6 +54,10 @@
 		}
 	}
 
+	// 关于我们
+	$aboutList = $aboutModel->limit(0, 1)->select();
+	$aboutObj = $aboutList[0];
+
  ?>
 
 <!DOCTYPE html>
@@ -61,7 +66,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>MAap-墨璞建筑设计官网</title>
-
+	<meta name="Keywords" content="<?=$aboutObj['keyword'] ?>">
+	<meta name="description" content="<?=$aboutObj['description'] ?>">
 	<link rel="stylesheet" href="./lib/fullpage/dist/jquery.fullpage.min.css">
 	<link rel="stylesheet" href="./lib/swiper/dist/idangerous.swiper.css">
 	<link rel="stylesheet" href="./css/main.css">
@@ -125,17 +131,17 @@
 				<?=$itemList[0]['i_title']?>
 			</div>
 		</div>
-		<div class="section section2">
+		<div class="section section2" style="background-image:url(../admin/<?=$aboutObj['imgurl']?>)">
 			<div class="wrap"></div>
 			<span class="about-left">ABOUT US</span>
 				<div class="about-right">
 					<div class="about-content">
 						<h3>公司简介</h3>
 						<h5>Company Profile</h5>
-						<p>MAap是一家设计施工一体化公司。利用现代的设计与建造方法为独立业主私人定制从住宅到小型酒店的高端物业。<br> 目前国内高舒适度住宅的设计与建造相对欧美还有非常大的差距，往往出现使用不便以及冬冷夏热的情况。这种质量问题除了设计初期的失误以外，更大程度是由于每地工人素质区别巨大造成了由内到外完工细节质量的不可控。<br> MAap的设计基于预制，利用中国高精度的工业产能按照欧洲标准加工高质量的进口原材料，达到70%以上的场外完成度。仅仅将少量的拼装工作留给最后的施工人员，达成了超高的质量均一度，也让欧标建筑在中国的达成变得现实。</p>
+						<p><?=$aboutObj['introduce'] ?></p>
 						<h3>联系我们</h3>
 						<h5>contact us</h5>
-						<p class="p-2">地址：上海市嘉定区安亭新镇安礼路21号105<br>电话：021-1234567<br>邮箱：00000@maap.com </p>
+						<p class="p-2">地址：<?=$aboutObj['address'] ?><br>电话：<?=$aboutObj['phone'] ?><br>邮箱：<?=$aboutObj['email'] ?> </p>
 						<div>—— MAaP</div>
 					</div>
 				</div>
@@ -234,9 +240,14 @@
 				$(this).removeClass('active');
 			});
 
-			$('#closeItemBtn').click(function() {
+			$(document).on('click',  '#closeItemBtn', function() {
 				$('#itemDetail').removeClass('active');
 				$('#openItemBtn').addClass('active');
+			});
+
+			$(document).on('click', '.swiper-container', function() {
+				$(this).siblings('#itemList, #itemDetail').removeClass('active');
+				$(this).siblings('#openItemBtn').addClass('active');
 			});
 			
 			// 菜单按钮点击事件
@@ -275,7 +286,7 @@
 				$(this).addClass('active').siblings().removeClass('active');
 				$.ajax({
 					type: 'post',
-					url: 'http://192.168.1.102/admin/query.php?action=querynews',
+					url: 'http://192.168.1.100/admin/query.php?action=querynews',
 					data: {id: $(this).attr('data-id')},
 					dataType: 'json',
 					success: function(resp) {
@@ -306,7 +317,7 @@
 				var loading = showLoading($(this).parent())
 				$.ajax({
 					type: 'post',
-					url: 'http://192.168.1.102/admin/query.php?action=queryitem',
+					url: 'http://192.168.1.100/admin/query.php?action=queryitem',
 					data: {id: $(this).parent().attr('data-id')},
 					dataType: 'json',
 					success: function(resp) {
@@ -314,7 +325,7 @@
 							$("#itemList").removeClass("active");
 							var dataObj = resp.data || {}
 							$('#openItemBtn').html('<i></i>' + dataObj.i_title).addClass('active');
-							$('#itemDetail').children('.item-detail').children('h2').html(dataObj.i_title).end().children('p').html(dataObj.i_introduce);
+							$('#itemDetail').children('.item-detail').children('h2').html(dataObj.i_title+'<span id="closeItemBtn"></span>').end().children('p').html(dataObj.i_introduce);
 							// 组装slider
 							mySwiper.removeAllSlides();
 							for (i=0; i<dataObj.images.length; i++) {
