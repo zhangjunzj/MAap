@@ -36,7 +36,7 @@
 
 	// 项目列表不可为空
 	foreach ($itemList as $key => $value) {
-		$image = $imageModel->where("item_id={$value['i_id']}")->limit(0,1)->select();
+		$image = $imageModel->where("item_id='{$value['uid']}'")->limit(0,1)->select();
 		$value['url'] = '../admin/images/'.$image[0]['path'].$image[0]['url'];
 		if (strlen($value['i_introduce']) > 60) {
 			$value['shot_introduce'] = mb_substr($value['i_introduce'], 0, 30,'UTF-8').'...';
@@ -47,7 +47,7 @@
 	}
 	// 查询第一个项目banner图片
 	if (!empty($itemList)) {
-		$images = $imageModel->where("item_id={$itemList[0]['i_id']}")->select();
+		$images = $imageModel->where("item_id='{$itemList[0]['uid']}'")->select();
 		foreach ($images as $key => $value) {
 			$url = '../admin/images/'.$value['path'].$value['url'];
 			$banners[] = $url;
@@ -103,7 +103,7 @@
 						<ul>
 							<!-- 项目列表 -->
 							<?php foreach($itemList as $item):?>
-								<li data-id="<?=$item['i_id']?>">
+								<li data-id="<?=$item['i_id']?>" data-uid="<?=$item['uid']?>">
 									<img src="<?=$item['url']?>" alt="">
 									<div class="item-item">
 										<h5><?=$item['i_title']?></h5>
@@ -249,6 +249,10 @@
 				$(this).siblings('#itemList, #itemDetail').removeClass('active');
 				$(this).siblings('#openItemBtn').addClass('active');
 			});
+
+			if ($('.news-list').length <= 2) {
+				$('.section3').hide();
+			}
 			
 			// 菜单按钮点击事件
 			$('#menuEl').children('ul').children('li').bind('click', function() {
@@ -318,7 +322,7 @@
 				$.ajax({
 					type: 'post',
 					url: 'http://192.168.1.100/admin/query.php?action=queryitem',
-					data: {id: $(this).parent().attr('data-id')},
+					data: {id: $(this).parent().attr('data-id'), uid: $(this).parent().attr('data-uid')},
 					dataType: 'json',
 					success: function(resp) {
 						if (resp.code == 1) {
