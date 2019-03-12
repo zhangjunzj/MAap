@@ -43,6 +43,7 @@
 		} else {
 			$value['shot_introduce'] = $value['i_introduce'];
 		}
+        $value['i_introduce'] = preg_replace('/[\n\r]/m', '<br>', $value['i_introduce']);
 		$itemList[$key] = $value;
 	}
 	// 查询第一个项目banner图片
@@ -328,6 +329,7 @@
 						if (resp.code == 1) {
 							$("#itemList").removeClass("active");
 							var dataObj = resp.data || {}
+                            dataObj.i_introduce && (dataObj.i_introduce = dataObj.i_introduce.replace(/[\n\r]/gm, '<br>'));
 							$('#openItemBtn').html('<i></i>' + dataObj.i_title).addClass('active');
 							$('#itemDetail').children('.item-detail').children('h2').html(dataObj.i_title+'<span id="closeItemBtn"></span>').end().children('p').html(dataObj.i_introduce);
 							// 组装slider
