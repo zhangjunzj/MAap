@@ -11,39 +11,31 @@
 			  <div class="menu-panel" v-show="showMenu">
 				  <div class="menu-item" @click="showSecMenuHandler">项目</div>
           <ul class="sec-menu" v-show="showSecMenu">
-            <li class="sec-menu-item">
-              <router-link to="/project">野界营地酒店</router-link>
-            </li>
-            <li class="sec-menu-item">慧心谷度假村景观设计</li>
-            <li class="sec-menu-item">慧心谷别墅</li>
+            <li class="sec-menu-item" v-for="(item, index) in projects"
+                :key="index"
+                @click="toProjectDetail">{{item.title}}</li>
           </ul>
 				  <div class="menu-item">关于我们</div>
 				  <div class="menu-item">新闻</div>
 			  </div>
 		  </div>
 		  <ul>
-			  <li class="item">
+			  <li class="item" v-for="(item, index) in projects" :key="index" @click="toProjectDetail">
 				  <div><img src="../../images/6.jpg" alt=""></div>
 				  <div class="item-info">
-					  <span>野界营地酒店</span>
-					  <span class="img-tag">04</span>
-				  </div>
-			  </li>
-			  <li class="item">
-				  <div><img src="../../images/6.jpg" alt=""></div>
-				  <div class="item-info">
-					  <span>野界营地酒店</span>
+					  <span>{{item.title}}</span>
 					  <span class="img-tag">04</span>
 				  </div>
 			  </li>
 		  </ul>
-		  <div class="more">
+		  <div class="more" @click="loadMoreProject">
 			  加载更多
 		  </div>
 		  <div class="about">
 			  <h5><span>关于我们</span></h5>
 			  <div class="about-detail">
-
+          <p class="about-paragraph">MAaP的项目全部集中在娱乐休闲领域，而我们本身则是彻底的环保主义者。我们致力于娱乐他人，同时善待地球；我们创造精彩的形式，同时也关注建筑的性能与环境的质量。 </p>
+          <p class="about-paragraph">从建筑到机电解决方案，从景观到山体，水体，植物的可持续低成本管理方式，MAaP专注于这一领域，希望能够协助业主一同构建需要高度体验性的度假酒店建造体系。</p>
 			  </div>
 		  </div>
 		  <div class="contact">
@@ -55,23 +47,16 @@
 		  <div class="news">
 			  <h5><span>新闻</span></h5>
         <ul>
-          <li class="news-item">
+          <li class="news-item" v-for="(item, index) in news" :key="index" @click="toNewsDetail">
             <img src="../../images/6.jpg" alt="">
             <div class="item-content">
-              <h3 class="news-title">新闻标题一行效果新闻标题一行效果新闻标题一行效果新闻标题一行效果新闻标题一行效果</h3>
-              <p class="news-time">2019/3/9</p>
-            </div>
-          </li>
-          <li class="news-item">
-            <img src="../../images/6.jpg" alt="">
-            <div class="item-content">
-              <h3 class="news-title">新闻标题一行效果</h3>
+              <h3 class="news-title">{{item.title}}新闻标题一行效果新闻标题一行效果新闻标题一行效果新闻标题一行效果新闻标题一行效果</h3>
               <p class="news-time">2019/3/9</p>
             </div>
           </li>
         </ul>
 		  </div>
-      <div class="more">
+      <div class="more" @click="loadMoreNews">
         加载更多新闻
       </div>
       <div class="copyright">Copyright ©2018-2021 MAap. All rights reserved.</div>
@@ -84,7 +69,19 @@ export default {
   data() {
     return {
       showMenu: false,
-      showSecMenu: false
+      showSecMenu: false,
+      news: [
+        {title: '1'},
+        {title: '12'},
+        {title: '3'}
+      ],
+      projects: [
+        {title: '野界营地酒店'},
+        {title: '慧心谷度假村景观设计'},
+        {title: '慧心谷别墅'},
+        {title: '慧心谷茶室'},
+        {title: '慧心谷酒店'}
+      ]
     }
   },
   methods: {
@@ -93,6 +90,28 @@ export default {
     },
     showSecMenuHandler() {
       this.showSecMenu = !this.showSecMenu;
+    },
+    toProjectDetail() {
+      this.$router.push({
+        path: '/project',
+        params: {
+          id: 1
+        }
+      })
+    },
+    toNewsDetail() {
+      this.$router.push({
+        path: '/news',
+        params: {
+          id: 1
+        }
+      })
+    },
+    loadMoreProject() {
+      this.news.push({})
+    },
+    loadMoreNews() {
+      this.news.push({})
     }
   },
   created() {
@@ -189,6 +208,11 @@ export default {
   }
   .about {
     background: #fff;
+    .about-paragraph {
+      padding: px2rem(10px) px2rem(30px);
+      line-height: px2rem(30px);
+      font-size: px2rem(16px);
+    }
   }
   .contact {
     background: #fff;
@@ -273,6 +297,7 @@ export default {
     width: 100%;
     height: px2rem(300px);
     background: #fff;
+    overflow-y: auto;
     .menu-item {
       line-height: px2rem(44px);
       font-size: px2rem(17px);
