@@ -188,9 +188,9 @@ export default {
         content: " ";
         position: absolute;
         left: px2rem(-20px);
-        top: px2rem(10px);
-        width: px2rem(8px);
-        height: px2rem(8px);
+        top: px2rem(8px);
+        width: px2rem(6px);
+        height: px2rem(6px);
         border: px2rem(2px) solid #0e6eb8;
         border-radius: 100%;
       }
@@ -198,9 +198,9 @@ export default {
         content: " ";
         position: absolute;
         right: px2rem(-20px);
-        top: px2rem(10px);
-        width: px2rem(8px);
-        height: px2rem(8px);
+        top: px2rem(8px);
+        width: px2rem(6px);
+        height: px2rem(6px);
         border: px2rem(2px) solid #0e6eb8;
         border-radius: 100%;
       }
