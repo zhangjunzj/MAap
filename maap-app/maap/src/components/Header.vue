@@ -10,8 +10,7 @@
       <div class="menu-item" @click="showSecMenuHandler">项目</div>
       <ul class="sec-menu" v-show="showSecMenu">
         <li class="sec-menu-item" v-for="(item, index) in projects"
-            :key="index"
-            @click="toProjectDetail">{{item.title}}</li>
+            :key="index" @click="toProjectDetail">{{item.title}}</li>
       </ul>
       <div class="menu-item">关于我们</div>
       <div class="menu-item">新闻</div>
@@ -21,11 +20,42 @@
 
 <script type="text/ecmascript-6">
 export default {
-  name: "header"
+  name: "header-bar",
+  data () {
+    return {
+      showMenu: false,
+      showSecMenu: false,
+      projects: [
+        {title: '野界营地酒店'},
+        {title: '慧心谷度假村景观设计'},
+        {title: '慧心谷别墅'},
+        {title: '慧心谷茶室'},
+        {title: '慧心谷酒店'}
+      ]
+    }
+  },
+  methods: {
+    showMenuHandler() {
+      this.showMenu = !this.showMenu;
+    },
+    showSecMenuHandler() {
+      this.showSecMenu = !this.showSecMenu;
+    },
+    toProjectDetail() {
+      this.showMenuHandler();
+      this.$router.push({
+        path: '/project',
+        params: {
+          id: 1
+        }
+      })
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
+  @import "../style/main.scss";
   .header {
     height: px2rem(50px);
     background: #fff;
@@ -34,12 +64,15 @@ export default {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 999;
     .logo-icon {
       width: 72px;
       height: 22px;
-      background-image: url(../../images/logo@2x.png);
+      background-image: url(../images/logo@2x.png);
       background-size: 72px 22px;
     }
   }
@@ -61,7 +94,7 @@ export default {
     left: 0px;
     top: px2rem(50px);
     width: 100%;
-    height: px2rem(300px);
+    height: px2rem(360px);
     background: #fff;
     overflow-y: auto;
     .menu-item {

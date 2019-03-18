@@ -1,24 +1,6 @@
 <template>
   <div>
 	  <div class="container">
-		  <div class="header">
-			  <div class="logo-icon" ></div>
-			  <div class="menu-icon" @click="showMenuHandler">
-				  <span></span>
-				  <span></span>
-				  <span></span>
-			  </div>
-			  <div class="menu-panel" v-show="showMenu">
-				  <div class="menu-item" @click="showSecMenuHandler">项目</div>
-          <ul class="sec-menu" v-show="showSecMenu">
-            <li class="sec-menu-item" v-for="(item, index) in projects"
-                :key="index"
-                @click="toProjectDetail">{{item.title}}</li>
-          </ul>
-				  <div class="menu-item">关于我们</div>
-				  <div class="menu-item">新闻</div>
-			  </div>
-		  </div>
 		  <ul>
 			  <li class="item" v-for="(item, index) in projects" :key="index" @click="toProjectDetail">
 				  <div><img src="../../images/6.jpg" alt=""></div>
@@ -68,8 +50,6 @@
 export default {
   data() {
     return {
-      showMenu: false,
-      showSecMenu: false,
       news: [
         {title: '1'},
         {title: '12'},
@@ -85,12 +65,6 @@ export default {
     }
   },
   methods: {
-    showMenuHandler() {
-      this.showMenu = !this.showMenu;
-    },
-    showSecMenuHandler() {
-      this.showSecMenu = !this.showSecMenu;
-    },
     toProjectDetail() {
       this.$router.push({
         path: '/project',
