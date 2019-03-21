@@ -3,7 +3,7 @@
     <div class="swiper">
       <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="(item, index) in detailimages" :key="index">
-          <img src="../../images/6.jpg" :alt="item.page">
+          <img src="../../images/6.jpg" preview="1" :alt="item.page">
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
@@ -14,8 +14,16 @@
 </template>
 
 <script type="text/ecmascript-6">
+import Vue from 'Vue'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
+import preview from 'vue-photo-preview'
+import 'vue-photo-preview/dist/skin.css'
+Vue.use(preview)
+var options = {
+  fullscreenEl:false //关闭全屏按钮
+}
+Vue.use(vuePhotoPreview,options)
 export default {
   name: "detail",
   components: {
@@ -46,6 +54,9 @@ export default {
   },
   mounted() {
     this.swiper.slideTo(3, 1000, false)
+    this.$preview.on('imageLoadComplete',(e,item)=>{
+      console.log(this.$preview.self)
+    })
   }
 }
 </script>
