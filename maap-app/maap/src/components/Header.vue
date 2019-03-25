@@ -1,7 +1,7 @@
 <template>
   <div class="header">
-    <div class="logo-icon" ></div>
-    <div class="menu-icon" @click="showMenuHandler">
+    <div class="logo-icon" @click="toHome"></div>
+    <div class="menu-icon" @click="showMenuHandler(!showMenu)">
       <span></span>
       <span></span>
       <span></span>
@@ -10,7 +10,7 @@
       <div class="menu-item" @click="showSecMenuHandler">项目</div>
       <ul class="sec-menu" v-show="showSecMenu">
         <li class="sec-menu-item" v-for="(item, index) in projects"
-            :key="index" @click="toProjectDetail">{{item.title}}</li>
+            :key="index" @click="toProjectDetail(item.id)">{{item.title}}</li>
       </ul>
       <div class="menu-item">关于我们</div>
       <div class="menu-item">新闻</div>
@@ -24,28 +24,34 @@ export default {
   data () {
     return {
       showMenu: false,
-      showSecMenu: false,
-      projects: [
-        {title: '野界营地酒店'},
-        {title: '慧心谷度假村景观设计'},
-        {title: '慧心谷别墅'},
-        {title: '慧心谷茶室'},
-        {title: '慧心谷酒店'}
-      ]
+      showSecMenu: true,
+      projects: []
     }
   },
+  created () {
+    this.projects = JSON.parse(localStorage.getItem('projects'));
+  },
   methods: {
-    showMenuHandler() {
-      this.showMenu = !this.showMenu;
+    showMenuHandler(show) {
+      this.showMenu = show;
     },
     showSecMenuHandler() {
       this.showSecMenu = !this.showSecMenu;
     },
-    toProjectDetail() {
-      this.showMenuHandler();
+    toProjectDetail(id) {
+      this.showMenuHandler(false);
       this.$router.push({
         path: '/project',
-        params: {
+        query: {
+          id: id
+        }
+      })
+    },
+    toHome() {
+      this.showMenuHandler(false);
+      this.$router.push({
+        path: '/',
+        query: {
           id: 1
         }
       })
@@ -97,6 +103,7 @@ export default {
     height: px2rem(360px);
     background: #fff;
     overflow-y: auto;
+    box-shadow: 2px 2px 2px #ddd;
     .menu-item {
       line-height: px2rem(44px);
       font-size: px2rem(17px);

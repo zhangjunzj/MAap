@@ -2,11 +2,11 @@
   <div>
 	  <div class="container">
 		  <ul>
-			  <li class="item" v-for="(item, index) in projects" :key="index" @click="toProjectDetail">
-				  <div><img src="../../images/6.jpg" alt=""></div>
+			  <li class="item" v-for="item in projects" :key="item.id" @click="toProjectDetail(item.id)">
+				  <div><img :src="imgBaseUrl + item.images[0].path + item.images[0].url" alt=""></div>
 				  <div class="item-info">
 					  <span>{{item.title}}</span>
-					  <span class="img-tag">04</span>
+					  <span class="img-tag">{{item.images.length}}</span>
 				  </div>
 			  </li>
 		  </ul>
@@ -16,24 +16,24 @@
 		  <div class="about">
 			  <h5><span>关于我们</span></h5>
 			  <div class="about-detail">
-          <p class="about-paragraph">MAaP的项目全部集中在娱乐休闲领域，而我们本身则是彻底的环保主义者。我们致力于娱乐他人，同时善待地球；我们创造精彩的形式，同时也关注建筑的性能与环境的质量。 </p>
-          <p class="about-paragraph">从建筑到机电解决方案，从景观到山体，水体，植物的可持续低成本管理方式，MAaP专注于这一领域，希望能够协助业主一同构建需要高度体验性的度假酒店建造体系。</p>
+          <p class="about-paragraph">{{about.description}}</p>
+          <p class="about-paragraph">{{about.introduce}}</p>
 			  </div>
 		  </div>
 		  <div class="contact">
 			  <h5><span>联系我们</span></h5>
-			  <p>地址：上海市嘉定区安礼路258弄21号105室</p>
-			  <p>电话：18616018525</p>
-			  <p>邮箱：m@metaal.de</p>
+			  <p>地址：{{about.address}}</p>
+			  <p>电话：{{about.phone}}</p>
+			  <p>邮箱：{{about.email}}</p>
 		  </div>
 		  <div class="news">
 			  <h5><span>新闻</span></h5>
         <ul>
-          <li class="news-item" v-for="(item, index) in news" :key="index" @click="toNewsDetail">
+          <li class="news-item" v-for="item in newslist" :key="item.id" @click="toNewsDetail(item.id)">
             <img src="../../images/6.jpg" alt="">
             <div class="item-content">
-              <h3 class="news-title">{{item.title}}新闻标题一行效果新闻标题一行效果新闻标题一行效果新闻标题一行效果新闻标题一行效果</h3>
-              <p class="news-time">2019/3/9</p>
+              <h3 class="news-title">{{item.title}}</h3>
+              <p class="news-time">{{item.addtime}}</p>
             </div>
           </li>
         </ul>
@@ -50,34 +50,35 @@
 export default {
   data() {
     return {
-      news: [
-        {title: '1'},
-        {title: '12'},
-        {title: '3'}
-      ],
-      projects: [
-        {title: '野界营地酒店'},
-        {title: '慧心谷度假村景观设计'},
-        {title: '慧心谷别墅'},
-        {title: '慧心谷茶室'},
-        {title: '慧心谷酒店'}
-      ]
+      imgBaseUrl: 'http://www.maapoffice.com/admin/images/',
+      newslist: JSON.parse(localStorage.getItem('newslist')),
+      projects: JSON.parse(localStorage.getItem('projects')),
+      about: {
+        address: '',
+        description: '',
+        email: '',
+        imgurl: '',
+        introduce: '',
+        keyword: '',
+        phone: '',
+        time: ''
+      }
     }
   },
   methods: {
-    toProjectDetail() {
+    toProjectDetail(id) {
       this.$router.push({
         path: '/project',
-        params: {
-          id: 1
+        query: {
+          id: id
         }
       })
     },
-    toNewsDetail() {
+    toNewsDetail(id) {
       this.$router.push({
         path: '/news',
-        params: {
-          id: 1
+        query: {
+          id: id
         }
       })
     },
@@ -86,14 +87,27 @@ export default {
     },
     loadMoreNews() {
       this.news.push({})
+    },
+    saveLocalStorge(data) {
+      localStorage.setItem('projects', JSON.stringify(data.itemlist));
+      localStorage.setItem('newslist', JSON.stringify(data.newslist));
+      localStorage.setItem('about', JSON.stringify(data.about));
     }
   },
   created() {
     // ajax 测试
-	  this.$Http('itemlist.php', 'POST', {})
+	  this.$Http('query.php?action=all', 'POST', {})
 		.then((res)=> {
-
-		})
+		  const {code, data} = res;
+		  if (code === 1) {
+        this.saveLocalStorge(data);
+        const {about, itemlist, newslist} = data;
+        this.projects = itemlist;
+        this.newslist = newslist;
+        this.about = about;
+      }
+      console.log(res)
+    })
 		.catch(()=> {
 
 		})

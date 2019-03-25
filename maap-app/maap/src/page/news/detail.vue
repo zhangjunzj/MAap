@@ -1,16 +1,37 @@
 <template>
   <div class="news">
-    <div class="news-title">新闻标题：自动识别标题长度 ,超过一行自动折行</div>
-    <div class="news-date">2019/3/3</div>
-    <p class="news-paragraph">一个真正的环保主义者想要的生活方式。野界无论是在形态上还是底层系统上都向着极致的环保体验而去。从山泉引来的全屋净水，再到高效节能的建筑形式，污水和厨余废弃物100%回收再进入农场区再次利用。</p>
-    <img class="news-img" src="../../images/6.jpg" alt="">
-    <p class="news-paragraph">一个真正的环保主义者想要的生活方式。野界无论是在形态上还是底层系统上都向着极致的环保体验而去。从山泉引来的全屋净水，再到高效节能的建筑形式，污水和厨余废弃物100%回收再进入农场区再次利用。</p>
+    <div class="news-title">{{newsitem.title}}</div>
+    <div class="news-date">{{newsitem.addtime}}</div>
+    <p class="news-paragraph" v-html="newsitem.content"></p>
+    <!--<img class="news-img" src="../../images/6.jpg" alt="">-->
   </div>
 </template>
 
 <script type="text/ecmascript-6">
 export default {
-name: "detail"
+  name: "detail",
+  data() {
+    return {
+      newsitem:{
+        addtime: '',
+        content: '',
+        title: '',
+        text: ''
+      }
+    }
+  },
+  created() {
+    console.log(this.$route.query);
+    const id = this.$route.query.id;
+    let newslist = JSON.parse(localStorage.getItem('newslist'));
+    console.log(newslist);
+    let result = newslist.filter(function(item) {
+      if (item.id === id) {
+        return true
+      }
+    })
+    this.newsitem = result[0];
+  }
 }
 </script>
 

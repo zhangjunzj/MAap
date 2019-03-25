@@ -2,14 +2,14 @@
   <div>
     <div class="swiper">
       <swiper :options="swiperOption" ref="mySwiper">
-        <swiper-slide v-for="(item, index) in detailimages" :key="index">
-          <img src="../../images/6.jpg" preview="1" :alt="item.page">
+        <swiper-slide v-for="(item, index) in project.images" :key="index">
+          <img :src="imgBaseUrl+item.path+item.url" preview="1" :alt="item.page">
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
-    <h3 class="project-title">野界营地酒店</h3>
-    <p class="project-content">一个真正的环保主义者想要的生活方式。野界无论是在形态上还是底层系统上都向着极致的环保体验而去。</p>
+    <h3 class="project-title">{{project.title}}</h3>
+    <p class="project-content">{{project.introduce}}</p>
   </div>
 </template>
 
@@ -32,12 +32,12 @@ export default {
   },
   data () {
     return {
-      detailimages: [
-        {page: 1},
-        {page: 2},
-        {page: 3},
-        {page: 4}
-      ],
+      imgBaseUrl: 'http://www.maapoffice.com/admin/images/',
+      project: {
+        title: '',
+        introduce: '',
+        images: [],
+      },
       swiperOption: {
         autoplay: 1000,
         loop: true,
@@ -52,11 +52,33 @@ export default {
       return this.$refs.mySwiper.swiper
     }
   },
+  methods: {
+    loadData: function() {
+      console.log(this.$route.query);
+      const id = this.$route.query.id;
+      let projects = JSON.parse(localStorage.getItem('projects'));
+      let result = projects.filter(function(item) {
+        if (item.id === id) {
+          return true
+        }
+      })
+      this.project = result[0];
+      console.log(this.project);
+    }
+  },
+  watch: {
+    $route: function() {
+      this.loadData();
+    }
+  },
+  created() {
+    this.loadData();
+  },
   mounted() {
     this.swiper.slideTo(3, 1000, false)
-    this.$preview.on('imageLoadComplete',(e,item)=>{
-      console.log(this.$preview.self)
-    })
+    // this.$preview.on('imageLoadComplete',(e,item)=>{
+    //   console.log(this.$preview.self)
+    // })
   }
 }
 </script>
