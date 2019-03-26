@@ -2,7 +2,7 @@
   <div>
 	  <div class="container">
 		  <ul>
-			  <li class="item" v-for="item in projects" :key="item.id" @click="toProjectDetail(item.id)">
+			  <li class="item" v-for="item in showProjectsData" :key="item.id" @click="toProjectDetail(item.id)">
 				  <div><img :src="imgBaseUrl + item.images[0].path + item.images[0].url" alt=""></div>
 				  <div class="item-info">
 					  <span>{{item.title}}</span>
@@ -11,7 +11,7 @@
 			  </li>
 		  </ul>
 		  <div class="more" @click="loadMoreProject">
-			  加载更多
+			  {{projectMoreText}}
 		  </div>
 		  <div class="about">
 			  <h5><span>关于我们</span></h5>
@@ -39,7 +39,7 @@
         </ul>
 		  </div>
       <div class="more" @click="loadMoreNews">
-        加载更多新闻
+        {{newsMoreText}}
       </div>
       <div class="copyright">Copyright ©2018-2021 MAap. All rights reserved.</div>
 	  </div>
@@ -51,8 +51,12 @@ export default {
   data() {
     return {
       imgBaseUrl: 'http://www.maapoffice.com/admin/images/',
+      showNewsData: this.getShowNews(),
+      newsMoreText: '加载更多',
       newslist: JSON.parse(localStorage.getItem('newslist')),
-      projects: JSON.parse(localStorage.getItem('projects')),
+      showProjectsData: this.getShowProjects(),
+      projectMoreText: '加载更多',
+      projects: JSON.parse(localStorage.getItem('newslist')),
       about: {
         address: '',
         description: '',
@@ -66,6 +70,14 @@ export default {
     }
   },
   methods: {
+    getShowProjects: function() {
+      let projects = JSON.parse(localStorage.getItem('projects'))
+      return projects.slice(0, 5)
+    },
+    getShowNews: function() {
+      let newslist = JSON.parse(localStorage.getItem('newslist'))
+      return newslist.slice(0, 5)
+    },
     toProjectDetail(id) {
       this.$router.push({
         path: '/project',
@@ -83,10 +95,24 @@ export default {
       })
     },
     loadMoreProject() {
-      this.news.push({})
+      const showLength = this.showProjectsData.length
+      const dataLength = this.projects.length
+      if (showLength === dataLength) {
+        this.projectMoreText = '已经是所有数据啦，没有更多了';
+      } else {
+        let moreData = this.projects.slice(showLength, showLength+2);
+        this.showProjectsData = this.showProjectsData.concat(moreData)
+      }
     },
     loadMoreNews() {
-      this.news.push({})
+      const showLength = this.showNewsData.length
+      const dataLength = this.newslist.length
+      if (showLength === dataLength) {
+        this.newsMoreText = '已经是所有数据啦，没有更多了';
+      } else {
+        let moreData = this.newslist.slice(showLength, showLength+2);
+        this.showNewsData = this.showNewsData.concat(moreData)
+      }
     },
     saveLocalStorge(data) {
       localStorage.setItem('projects', JSON.stringify(data.itemlist));
@@ -106,7 +132,6 @@ export default {
         this.newslist = newslist;
         this.about = about;
       }
-      console.log(res)
     })
 		.catch(()=> {
 
