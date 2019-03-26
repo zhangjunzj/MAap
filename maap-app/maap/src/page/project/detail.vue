@@ -3,7 +3,9 @@
     <div class="swiper">
       <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="(item, index) in project.images" :key="index">
-          <img :src="imgBaseUrl+item.path+item.url" preview="1" :alt="item.page">
+          <img v-preview="imgBaseUrl+item.path+item.url" :src="imgBaseUrl+item.path+item.url"
+               preview-title-enable="true"
+               preview-nav-enable="true" >
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
@@ -17,13 +19,6 @@
 import Vue from 'Vue'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
-import preview from 'vue-photo-preview'
-import 'vue-photo-preview/dist/skin.css'
-Vue.use(preview)
-var options = {
-  fullscreenEl:false //关闭全屏按钮
-}
-Vue.use(vuePhotoPreview,options)
 export default {
   name: "detail",
   components: {
@@ -39,7 +34,8 @@ export default {
         images: [],
       },
       swiperOption: {
-        autoplay: 1000,
+        autoplay: true,
+        speed: 400,
         loop: true,
         pagination : {
           el: '.swiper-pagination'
@@ -76,9 +72,6 @@ export default {
   },
   mounted() {
     this.swiper.slideTo(3, 1000, false)
-    // this.$preview.on('imageLoadComplete',(e,item)=>{
-    //   console.log(this.$preview.self)
-    // })
   }
 }
 </script>
