@@ -130,7 +130,6 @@ export default {
       localStorage.setItem('about', JSON.stringify(data.about));
     },
     scrollToEle() {
-      console.log(this.$route)
       const {name} = this.$route.query
       if (name === 'about') {
         document.getElementById("about").scrollIntoView();

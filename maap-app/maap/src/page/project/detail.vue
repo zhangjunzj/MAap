@@ -51,7 +51,6 @@ export default {
   },
   methods: {
     loadData: function() {
-      console.log(this.$route.query);
       const id = this.$route.query.id;
       let projects = JSON.parse(localStorage.getItem('projects'));
       let result = projects.filter(function(item) {
@@ -60,7 +59,6 @@ export default {
         }
       })
       this.project = result[0];
-      console.log(this.project);
     },
     toPreview(id) {
       this.$router.push({
