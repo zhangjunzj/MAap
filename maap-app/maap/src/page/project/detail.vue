@@ -115,7 +115,9 @@ export default {
         position: absolute;
         width: px2rem(18px);
         height: px2rem(16px);
-        background: #f90;
+        background-image: url(../../images/img.png);
+        background-size: px2rem(18px) px2rem(15px);
+        background-repeat: no-repeat;
         left: px2rem(-20px);
         top: px2rem(20px);
       }
@@ -131,5 +133,6 @@ export default {
     left: 0;
     right: 0;
     overflow-y: auto;
+    line-height: px2rem(30px);
   }
 </style>

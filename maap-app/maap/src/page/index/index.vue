@@ -35,7 +35,7 @@
             <img :src="newsIcon(item.icon)" alt="">
             <div class="item-content">
               <h3 class="news-title">{{item.title}}</h3>
-              <p class="news-time">{{item.addtime}}</p>
+              <p class="news-time">{{newsTime(item.addtime)}}</p>
             </div>
           </li>
         </ul>
@@ -143,6 +143,9 @@ export default {
         return this.imgBaseUrl + item[0].path + item[0].url
       }
       return '';
+    },
+    newsTime(timeStr) {
+      return timeStr.split(' ')[0];
     }
 
   },
