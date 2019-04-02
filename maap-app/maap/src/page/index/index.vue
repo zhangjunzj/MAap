@@ -2,11 +2,13 @@
   <div>
 	  <div class="container">
 		  <ul>
-			  <li class="item" v-for="item in showProjectsData" :key="item.id" @click="toProjectDetail(item.id)">
-				  <div><img :src="imgBaseUrl + item.images[0].path + item.images[0].url" alt=""></div>
+			  <li class="item" v-for="item in showProjectsData" :key="item.id">
+				  <div @click="toProjectDetail(item.id)">
+            <img :src="imgBaseUrl + item.images[0].path + item.images[0].url" alt="">
+          </div>
 				  <div class="item-info">
 					  <span>{{item.title}}</span>
-					  <span class="img-tag">{{item.images.length}}</span>
+					  <span class="img-tag" @click="toPreview(item.id)">{{item.images.length}}</span>
 				  </div>
 			  </li>
 		  </ul>
@@ -81,6 +83,14 @@ export default {
     toProjectDetail(id) {
       this.$router.push({
         path: '/project',
+        query: {
+          id: id
+        }
+      })
+    },
+    toPreview(id) {
+      this.$router.push({
+        path: '/preview',
         query: {
           id: id
         }

@@ -3,20 +3,20 @@
     <div class="swiper">
       <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="(item, index) in project.images" :key="index">
-          <img v-preview="imgBaseUrl+item.path+item.url" :src="imgBaseUrl+item.path+item.url"
-               preview-title-enable="true"
-               preview-nav-enable="true" >
+          <img :src="imgBaseUrl+item.path+item.url">
         </swiper-slide>
         <div class="swiper-pagination"  slot="pagination"></div>
       </swiper>
     </div>
-    <h3 class="project-title">{{project.title}}</h3>
+    <h3 class="project-title">
+      <span class="text-title">{{project.title}}</span>
+      <span class="img-tag" @click="toPreview(project.id)">{{project.images.length}}</span>
+    </h3>
     <p class="project-content">{{project.introduce}}</p>
   </div>
 </template>
 
 <script type="text/ecmascript-6">
-import Vue from 'Vue'
 import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
@@ -29,6 +29,7 @@ export default {
     return {
       imgBaseUrl: 'http://www.maapoffice.com/admin/images/',
       project: {
+        id: '',
         title: '',
         introduce: '',
         images: [],
@@ -60,6 +61,14 @@ export default {
       })
       this.project = result[0];
       console.log(this.project);
+    },
+    toPreview(id) {
+      this.$router.push({
+        path: '/preview',
+        query: {
+          id: id
+        }
+      })
     }
   },
   watch: {
@@ -92,6 +101,27 @@ export default {
     line-height: px2rem(60px);
     font-weight: bold;
     padding: 0 px2rem(15px);
+    display: flex;
+    .text-title {
+      font-weight: bold;
+      flex: 1;
+    }
+    .img-tag {
+      position: relative;
+      height: px2rem(18px);
+      line-height: px2rem(60px);
+      font-size: 12px;
+      color: #0e6eb8;
+      &::before {
+        content: " ";
+        position: absolute;
+        width: px2rem(18px);
+        height: px2rem(16px);
+        background: #f90;
+        left: px2rem(-20px);
+        top: px2rem(20px);
+      }
+    }
   }
   .project-content {
     padding: 0 px2rem(15px);

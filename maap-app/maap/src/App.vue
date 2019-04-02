@@ -4,7 +4,6 @@
     <div class="container">
       <router-view/>
     </div>
-    <lg-preview></lg-preview>
   </div>
 </template>
 
