@@ -1,6 +1,7 @@
 
 <template>
   <div class="content">
+    <div class="back" @click="back"></div>  
     <div class="swiper">
       <swiper :options="swiperOption" ref="mySwiper">
         <swiper-slide v-for="(item, index) in project.images" :key="index">
@@ -52,6 +53,9 @@
           }
         })
         this.project = result[0];
+      },
+      back() {
+        this.$router.back();
       }
     },
     watch: {
@@ -76,6 +80,16 @@
     height: 100vh;
     background: rgba(0, 0, 0, .7);
     z-index: 1000;
+    .back {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: px2rem(40px);
+      height: px2rem(40px);
+      background-image: url(../../images/left-arrow.png);
+      background-size: px2rem(30px) px2rem(30px);
+      background-repeat: no-repeat;
+    }
     .swiper {
       position: absolute;
       top: 0;
