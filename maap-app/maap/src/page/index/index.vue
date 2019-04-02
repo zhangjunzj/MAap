@@ -13,7 +13,7 @@
 		  <div class="more" @click="loadMoreProject">
 			  {{projectMoreText}}
 		  </div>
-		  <div class="about">
+		  <div id="about" class="about" ref="about">
 			  <h5><span>关于我们</span></h5>
 			  <div class="about-detail">
           <p class="about-paragraph">{{about.description}}</p>
@@ -26,7 +26,7 @@
 			  <p>电话：{{about.phone}}</p>
 			  <p>邮箱：{{about.email}}</p>
 		  </div>
-		  <div class="news">
+		  <div id="news" class="news">
 			  <h5><span>新闻</span></h5>
         <ul>
           <li class="news-item" v-for="item in newslist" :key="item.id" @click="toNewsDetail(item.id)">
@@ -118,6 +118,15 @@ export default {
       localStorage.setItem('projects', JSON.stringify(data.itemlist));
       localStorage.setItem('newslist', JSON.stringify(data.newslist));
       localStorage.setItem('about', JSON.stringify(data.about));
+    },
+    scrollToEle() {
+      console.log(this.$route)
+      const {name} = this.$route.query
+      if (name === 'about') {
+        document.getElementById("about").scrollIntoView();
+      } else if (name === 'news') {
+        document.getElementById("news").scrollIntoView();
+      }
     }
   },
   created() {
@@ -136,6 +145,9 @@ export default {
 		.catch(()=> {
 
 		})
+  },
+  mounted() {
+    this.scrollToEle()
   }
 };
 </script>

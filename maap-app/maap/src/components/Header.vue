@@ -8,12 +8,14 @@
     </div>
     <div class="menu-panel" v-show="showMenu">
       <div class="menu-item" @click="showSecMenuHandler">项目</div>
-      <ul class="sec-menu" v-show="showSecMenu">
-        <li class="sec-menu-item" v-for="(item, index) in projects"
-            :key="index" @click="toProjectDetail(item.id)">{{item.title}}</li>
-      </ul>
-      <div class="menu-item">关于我们</div>
-      <div class="menu-item">新闻</div>
+      <transition name="menu-slide">
+        <ul class="sec-menu" v-show="showSecMenu">
+          <li class="sec-menu-item" v-for="(item, index) in projects"
+              :key="index" @click="toProjectDetail(item.id)">{{item.title}}</li>
+        </ul>
+      </transition>
+      <div class="menu-item" @click="toAbout">关于我们</div>
+      <div class="menu-item" @click="toNews">新闻</div>
     </div>
   </div>
 </template>
@@ -50,11 +52,36 @@ export default {
     toHome() {
       this.showMenuHandler(false);
       this.$router.push({
-        path: '/',
-        query: {
-          id: 1
-        }
+        path: '/'
       })
+    },
+    toAbout() {
+      const {name} = this.$route
+      this.showMenuHandler(false)
+      if (name === 'Index') {
+        document.getElementById("about").scrollIntoView();
+      } else {
+        this.$router.push({
+          path: '/',
+          query: {
+            name: 'about'
+          }
+        })
+      }
+    },
+    toNews() {
+      const {name} = this.$route
+      this.showMenuHandler(false)
+      if (name === 'Index') {
+        document.getElementById("news").scrollIntoView();
+      } else {
+        this.$router.push({
+          path: '/',
+          query: {
+            name: 'news'
+          }
+        })
+      }
     }
   }
 }
@@ -100,7 +127,7 @@ export default {
     left: 0px;
     top: px2rem(50px);
     width: 100%;
-    height: px2rem(360px);
+    height: px2rem(440px);
     background: #fff;
     overflow-y: auto;
     box-shadow: 2px 2px 2px #ddd;
@@ -128,5 +155,12 @@ export default {
       color: #999;
       font-size: px2rem(16px);
     }
+  }
+  .menu-slide-enter-active, .menu-slide-leave-active {
+    transition: opacity 1s ease-out;
+  }
+  .menu-slide-enter, .menu-slide-leave {
+    opacity: 0;
+    transition: opacity 1s ease-out;
   }
 </style>
