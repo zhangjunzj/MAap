@@ -86,7 +86,7 @@ export default {
 <style lang='scss' scoped>
   @import "../../style/main.scss";
   .swiper {
-    height: px2rem(210px);
+    height: px2rem(200px);
     overflow: hidden;
   }
   img {
@@ -122,8 +122,14 @@ export default {
     }
   }
   .project-content {
-    padding: 0 px2rem(15px);
+    padding: 0 px2rem(15px) px2rem(20px);
     color: #333;
     font-size: px2rem(16px);
+    position: fixed;
+    top: px2rem(306px);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow-y: auto;
   }
 </style>
