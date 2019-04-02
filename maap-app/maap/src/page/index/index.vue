@@ -32,7 +32,7 @@
 			  <h5><span>新闻</span></h5>
         <ul>
           <li class="news-item" v-for="item in newslist" :key="item.id" @click="toNewsDetail(item.id)">
-            <img src="../../images/6.jpg" alt="">
+            <img :src="newsIcon(item.icon)" alt="">
             <div class="item-content">
               <h3 class="news-title">{{item.title}}</h3>
               <p class="news-time">{{item.addtime}}</p>
@@ -136,7 +136,15 @@ export default {
       } else if (name === 'news') {
         document.getElementById("news").scrollIntoView();
       }
+    },
+    newsIcon(item) {
+      console.log(JSON.stringify(item))
+      if (item && item.length > 0) {
+        return this.imgBaseUrl + item[0].path + item[0].url
+      }
+      return '';
     }
+
   },
   created() {
     // ajax 测试
@@ -193,8 +201,10 @@ export default {
         position: absolute;
         width: px2rem(18px);
         height: px2rem(16px);
-        background: #f90;
         left: px2rem(-20px);
+        background-image: url(../../images/img.png);
+        background-size: px2rem(18px) px2rem(15px);
+        background-repeat: no-repeat;
       }
     }
   }
