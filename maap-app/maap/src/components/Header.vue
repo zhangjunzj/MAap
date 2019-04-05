@@ -1,12 +1,14 @@
 <template>
   <div class="header">
-    <div class="logo-icon" @click="toHome"></div>
-    <div class="menu-icon" @click="showMenuHandler(!showMenu)">
-      <span></span>
-      <span></span>
-      <span></span>
+    <div class="header-nav">
+      <div class="logo-icon" @click="toHome"></div>
+      <div class="menu-icon" :class="[showMenu ? 'menu-active' : '']" @click="showMenuHandler(!showMenu)">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
     </div>
-    <div class="menu-panel" v-show="showMenu">
+    <div class="menu-panel" :class="[showMenu ? 'panel-active' : '']">
       <div class="menu-item" @click="showSecMenuHandler">项目</div>
       <transition name="menu-slide">
         <ul class="sec-menu" v-show="showSecMenu">
@@ -17,6 +19,7 @@
       <div class="menu-item" @click="toAbout">关于我们</div>
       <div class="menu-item" @click="toNews">新闻</div>
     </div>
+    <div class="menu-mask" :class="[showMenu ? 'mask-active' : '']"></div>
   </div>
 </template>
 
@@ -92,11 +95,6 @@ export default {
   .header {
     height: px2rem(50px);
     background: #fff;
-    padding: 0px 10px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
     position: fixed;
     top: 0;
     left: 0;
@@ -109,28 +107,72 @@ export default {
       background-size: 72px 22px;
     }
   }
+  .header-nav {
+    height: px2rem(50px);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background: #fff;
+    padding: 0px 10px;
+  }
   .menu-icon {
     width: px2rem(20px);
-    height: px2rem(20px);
+    height: px2rem(18px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     z-index: 999999;
     span {
-      width: px2rem(20px);
-      height: px2rem(2px);
-      background: #666;
+      width: px2rem(22px);
+      height: 2px;
+      background-color: #666;
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+    }
+    &.menu-active {
+      span {
+        &:first-child {
+          transform: translateY(8px) rotate(-45deg);
+          -webkit-transform: translateY(8px) rotate(-45deg);
+        }
+        &:nth-child(2) {
+          background-color: transparent;
+        }
+        &:last-child {
+          transform: translateY(-8px) rotate(45deg);
+          -webkit-transform: translateY(-8px) rotate(45deg);
+        }
+      }
+    }
+  }
+  .menu-mask {
+    width: 100%;
+    height: 0px;
+    background: rgba(0,0,0,0.4);
+    position: absolute;
+    left: 0px;
+    z-index: -1;
+    &.mask-active {
+      height: 100vh;
+      background: rgba(0,0,0,0.4);
     }
   }
   .menu-panel {
     position: absolute;
-    left: 0px;
+    left: -1px;
     top: px2rem(50px);
     width: 100%;
-    height: px2rem(440px);
+    height: 0px;
     background: #fff;
     overflow-y: auto;
     box-shadow: 2px 2px 2px #ddd;
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    z-index: 9;
+    &.panel-active {
+      height: px2rem(500px);
+    }
     .menu-item {
       line-height: px2rem(44px);
       font-size: px2rem(17px);

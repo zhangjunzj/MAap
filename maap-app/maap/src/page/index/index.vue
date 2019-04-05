@@ -125,8 +125,10 @@ export default {
       }
     },
     saveLocalStorge(data) {
-      localStorage.setItem('projects', JSON.stringify(data.itemlist));
-      localStorage.setItem('newslist', JSON.stringify(data.newslist));
+      let itemlist = (data.itemlist || []).reverse();
+      let newslist = (data.newslist || []).reverse();
+      localStorage.setItem('projects', JSON.stringify(itemlist));
+      localStorage.setItem('newslist', JSON.stringify(newslist));
       localStorage.setItem('about', JSON.stringify(data.about));
     },
     scrollToEle() {
@@ -150,7 +152,6 @@ export default {
 
   },
   created() {
-    // ajax 测试
 	  this.$Http('query.php?action=all', 'POST', {})
 		.then((res)=> {
 		  const {code, data} = res;
