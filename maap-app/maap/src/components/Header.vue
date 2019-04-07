@@ -125,7 +125,7 @@ export default {
     justify-content: space-between;
     z-index: 999999;
     span {
-      width: px2rem(22px);
+      width: px2rem(23px);
       height: 2px;
       background-color: #666;
       transition: 0.5s;
@@ -134,15 +134,15 @@ export default {
     &.menu-active {
       span {
         &:first-child {
-          transform: translateY(8px) rotate(-45deg);
-          -webkit-transform: translateY(8px) rotate(-45deg);
+          transform: translateY(9px) rotate(-45deg);
+          -webkit-transform: translateY(9px) rotate(-45deg);
         }
         &:nth-child(2) {
           background-color: transparent;
         }
         &:last-child {
-          transform: translateY(-8px) rotate(45deg);
-          -webkit-transform: translateY(-8px) rotate(45deg);
+          transform: translateY(-9px) rotate(45deg);
+          -webkit-transform: translateY(-9px) rotate(45deg);
         }
       }
     }
