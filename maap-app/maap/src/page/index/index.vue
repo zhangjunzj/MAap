@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wraper" v-show="loadSuccess">
 	  <div class="container">
 		  <ul>
 			  <li class="item" v-for="item in showProjectsData" :key="item.id">
@@ -28,7 +28,7 @@
 			  <p>电话：{{about.phone}}</p>
 			  <p>邮箱：{{about.email}}</p>
 		  </div>
-		  <div id="news" class="news">
+		  <div id="news" class="news" v-if="newslist && newslist.length">
 			  <h5><span>新闻</span></h5>
         <ul>
           <li class="news-item" v-for="item in newslist" :key="item.id" @click="toNewsDetail(item.id)">
@@ -40,7 +40,7 @@
           </li>
         </ul>
 		  </div>
-      <div class="more" @click="loadMoreNews">
+      <div class="more" @click="loadMoreNews" v-if="newslist && newslist.length">
         {{newsMoreText}}
       </div>
       <div class="copyright">Copyright ©2018-2021 MAap. All rights reserved.</div>
@@ -53,12 +53,12 @@ export default {
   data() {
     return {
       imgBaseUrl: 'http://www.maapoffice.com/admin/images/',
-      showNewsData: this.getShowNews(),
+      showNewsData: null,
       newsMoreText: '加载更多',
-      newslist: JSON.parse(localStorage.getItem('newslist')),
-      showProjectsData: this.getShowProjects(),
+      newslist: JSON.parse(sessionStorage.getItem('newslist')),
+      showProjectsData: null,
       projectMoreText: '加载更多',
-      projects: JSON.parse(localStorage.getItem('newslist')),
+      projects: JSON.parse(sessionStorage.getItem('newslist')),
       about: {
         address: '',
         description: '',
@@ -68,16 +68,17 @@ export default {
         keyword: '',
         phone: '',
         time: ''
-      }
+      },
+      loadSuccess: false
     }
   },
   methods: {
     getShowProjects: function() {
-      let projects = JSON.parse(localStorage.getItem('projects'))
+      let projects = JSON.parse(sessionStorage.getItem('projects'))
       return projects.slice(0, 5)
     },
     getShowNews: function() {
-      let newslist = JSON.parse(localStorage.getItem('newslist'))
+      let newslist = JSON.parse(sessionStorage.getItem('newslist'))
       return newslist.slice(0, 5)
     },
     toProjectDetail(id) {
@@ -112,6 +113,7 @@ export default {
       } else {
         let moreData = this.projects.slice(showLength, showLength+2);
         this.showProjectsData = this.showProjectsData.concat(moreData)
+        this.showProjectsData.length === dataLength && (this.projectMoreText = '已经是所有数据啦，没有更多了');
       }
     },
     loadMoreNews() {
@@ -127,9 +129,11 @@ export default {
     saveLocalStorge(data) {
       let itemlist = (data.itemlist || []).reverse();
       let newslist = (data.newslist || []).reverse();
-      localStorage.setItem('projects', JSON.stringify(itemlist));
-      localStorage.setItem('newslist', JSON.stringify(newslist));
-      localStorage.setItem('about', JSON.stringify(data.about));
+      sessionStorage.setItem('projects', JSON.stringify(itemlist));
+      sessionStorage.setItem('newslist', JSON.stringify(newslist));
+      sessionStorage.setItem('about', JSON.stringify(data.about));
+      this.showProjectsData = itemlist.slice(0, 5) || [];
+      this.showNewsData = newslist.slice(0, 5) || [];
     },
     scrollToEle() {
       const {name} = this.$route.query
@@ -152,20 +156,31 @@ export default {
 
   },
   created() {
-	  this.$Http('query.php?action=all', 'POST', {})
-		.then((res)=> {
-		  const {code, data} = res;
-		  if (code === 1) {
-        this.saveLocalStorge(data);
-        const {about, itemlist, newslist} = data;
-        this.projects = itemlist;
-        this.newslist = newslist;
-        this.about = about;
-      }
-    })
-		.catch(()=> {
-
-		})
+    let projects = JSON.parse(sessionStorage.getItem('projects'));
+    if (!!projects) {
+      this.projects = projects;
+      let newslist = JSON.parse(sessionStorage.getItem('newslist'));
+      this.newslist = newslist;
+      let about = JSON.parse(sessionStorage.getItem('about'));
+      this.about = about;
+      this.showProjectsData = projects.slice(0, 5) || [];
+      this.showNewsData = newslist.slice(0, 5) || [];
+      this.loadSuccess = true;
+    } else {
+      this.$Http('query.php?action=all', 'POST', {})
+      .then((res)=> {
+        const {code, data} = res;
+        if (code === 1) {
+          this.saveLocalStorge(data);
+          const {about, itemlist, newslist} = data;
+          this.projects = itemlist;
+          this.newslist = newslist;
+          this.about = about;
+          this.loadSuccess = true;
+        }
+      })
+    }
+	  
   },
   mounted() {
     this.scrollToEle()
@@ -193,6 +208,7 @@ export default {
       height: px2rem(50px);
       padding: 0px px2rem(10px);
       color: #333;
+      
     }
     .img-tag {
       position: relative;
@@ -371,5 +387,20 @@ export default {
       font-size: px2rem(16px);
     }
   }
+}
+.wraper {
+  animation: fadeIn 0.8s;
+}
+@keyframes fadeIn {
+    0% {
+      transform: translateY(50px);
+      -webkit-transform: translateY(50px);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0px);
+      -webkit-transform: translateY(0px);
+      opacity: 1;
+    }
 }
 </style>

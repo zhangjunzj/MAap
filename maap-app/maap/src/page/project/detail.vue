@@ -52,7 +52,7 @@ export default {
   methods: {
     loadData: function() {
       const id = this.$route.query.id;
-      let projects = JSON.parse(localStorage.getItem('projects'));
+      let projects = JSON.parse(sessionStorage.getItem('projects'));
       let result = projects.filter(function(item) {
         if (item.id === id) {
           return true

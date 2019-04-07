@@ -19,7 +19,7 @@
       <div class="menu-item" @click="toAbout">关于我们</div>
       <div class="menu-item" @click="toNews">新闻</div>
     </div>
-    <div class="menu-mask" :class="[showMenu ? 'mask-active' : '']"></div>
+    <div class="menu-mask" :class="[showMenu ? 'mask-active' : '']" @click="showMenuHandler(false)"></div>
   </div>
 </template>
 
@@ -34,11 +34,12 @@ export default {
     }
   },
   created () {
-    this.projects = JSON.parse(localStorage.getItem('projects'));
+    this.projects = JSON.parse(sessionStorage.getItem('projects'));
   },
   methods: {
     showMenuHandler(show) {
       this.showMenu = show;
+      this.projects = JSON.parse(sessionStorage.getItem('projects'));
     },
     showSecMenuHandler() {
       this.showSecMenu = !this.showSecMenu;

@@ -22,7 +22,7 @@ export default {
   },
   created() {
     const id = this.$route.query.id;
-    let newslist = JSON.parse(localStorage.getItem('newslist'));
+    let newslist = JSON.parse(sessionStorage.getItem('newslist'));
     let result = newslist.filter(function(item) {
       if (item.id === id) {
         return true
