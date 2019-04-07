@@ -9,15 +9,17 @@
       </div>
     </div>
     <div class="menu-panel" :class="[showMenu ? 'panel-active' : '']">
-      <div class="menu-item" @click="showSecMenuHandler">项目</div>
-      <transition name="menu-slide">
-        <ul class="sec-menu" v-show="showSecMenu">
-          <li class="sec-menu-item" v-for="(item, index) in projects"
-              :key="index" @click="toProjectDetail(item.id)">{{item.title}}</li>
-        </ul>
-      </transition>
-      <div class="menu-item" @click="toAbout">关于我们</div>
-      <div class="menu-item" @click="toNews">新闻</div>
+      <div class="menu-panel-inner" :class="[showMenu ? 'menu-panel-inner-active' : '']">
+          <div class="menu-item" @click="showSecMenuHandler">项目</div>
+        <transition name="menu-slide">
+          <ul class="sec-menu" v-show="showSecMenu">
+            <li class="sec-menu-item" v-for="(item, index) in projects"
+                :key="index" @click="toProjectDetail(item.id)">{{item.title}}</li>
+          </ul>
+        </transition>
+        <div class="menu-item" @click="toAbout">关于我们</div>
+        <div class="menu-item" @click="toNews">新闻</div>
+        </div>
     </div>
     <div class="menu-mask" :class="[showMenu ? 'mask-active' : '']" @click="showMenuHandler(false)"></div>
   </div>
@@ -145,6 +147,16 @@ export default {
           -webkit-transform: translateY(-9px) rotate(45deg);
         }
       }
+    }
+  }
+  .menu-panel-inner {
+    transition: 0.5s;
+    -webkit-transition: 0.5s;
+    transform: translateY(-10px);
+    -webkit-transform: translateY(-10px);
+    &.menu-panel-inner-active {
+      transform: translateY(0px);
+      -webkit-transform: translateY(0px);
     }
   }
   .menu-mask {
