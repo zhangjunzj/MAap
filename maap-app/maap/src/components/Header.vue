@@ -10,7 +10,7 @@
     </div>
     <div class="menu-panel" :class="[showMenu ? 'panel-active' : '']">
       <div class="menu-panel-inner" :class="[showMenu ? 'menu-panel-inner-active' : '']">
-          <div class="menu-item" @click="showSecMenuHandler">项目</div>
+        <div class="menu-item hasLeaf" :class="{active: showSecMenu}" @click="showSecMenuHandler">项目</div>
         <transition name="menu-slide">
           <ul class="sec-menu" v-show="showSecMenu">
             <li class="sec-menu-item" v-for="(item, index) in projects"
@@ -193,6 +193,20 @@ export default {
       padding: 0 px2rem(30px);
       text-indent: px2rem(20px);
       position: relative;
+      &.hasLeaf:after {
+        content: '';
+        width: px2rem(12px);
+        height: px2rem(10px);
+        background-image: url('../images/arr_down.png');
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        left: px2rem(94px);
+        top: px2rem(15px);
+      }
+      &.hasLeaf.active:after {
+        background-image: url('../images/arr_up.png');
+      }
       &::before {
         content: " ";
         position: absolute;
