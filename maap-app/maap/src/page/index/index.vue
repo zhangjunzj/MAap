@@ -140,7 +140,10 @@ export default {
       if (name === 'about') {
         document.getElementById("about").scrollIntoView();
       } else if (name === 'news') {
-        document.getElementById("news").scrollIntoView();
+        let news = document.getElementById("news");
+        if (news) {
+          news.scrollIntoView();
+        }
       }
     },
     newsIcon(item) {
@@ -180,7 +183,6 @@ export default {
         }
       })
     }
-	  
   },
   mounted() {
     this.scrollToEle()
@@ -208,7 +210,6 @@ export default {
       height: px2rem(50px);
       padding: 0px px2rem(10px);
       color: #333;
-      
     }
     .img-tag {
       position: relative;

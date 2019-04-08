@@ -11,12 +11,12 @@
     <div class="menu-panel" :class="[showMenu ? 'panel-active' : '']">
       <div class="menu-panel-inner" :class="[showMenu ? 'menu-panel-inner-active' : '']">
         <div class="menu-item hasLeaf" :class="{active: showSecMenu}" @click="showSecMenuHandler">项目</div>
-        <transition name="menu-slide">
-          <ul class="sec-menu" v-show="showSecMenu">
+        <!--<transition name="menu-slide">-->
+          <ul class="sec-menu" :class="{active: showSecMenu}">
             <li class="sec-menu-item" v-for="(item, index) in projects"
                 :key="index" @click="toProjectDetail(item.id)">{{item.title}}</li>
           </ul>
-        </transition>
+        <!--</transition>-->
         <div class="menu-item" @click="toAbout">关于我们</div>
         <div class="menu-item" @click="toNews">新闻</div>
         </div>
@@ -79,7 +79,11 @@ export default {
       const {name} = this.$route
       this.showMenuHandler(false)
       if (name === 'Index') {
-        document.getElementById("news").scrollIntoView();
+        let news = document.getElementById("news");
+        if (news) {
+          news.scrollIntoView();
+        }
+        // document.getElementById("news").scrollIntoView();
       } else {
         this.$router.push({
           path: '/',
@@ -220,9 +224,16 @@ export default {
     }
     .sec-menu {
       padding: 0 px2rem(49px);
+      height: 0;
       line-height: px2rem(44px);
       color: #999;
       font-size: px2rem(16px);
+      overflow-y: auto;
+      transition: 0.5s;
+      -webkit-transition: 0.5s;
+      &.active {
+        height: px2rem(301px);
+      }
     }
   }
   .menu-slide-enter-active, .menu-slide-leave-active {
