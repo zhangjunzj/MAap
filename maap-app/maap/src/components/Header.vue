@@ -140,15 +140,15 @@ export default {
     &.menu-active {
       span {
         &:first-child {
-          transform: translateY(9px) rotate(-45deg);
-          -webkit-transform: translateY(9px) rotate(-45deg);
+          transform: translateY(px2rem(8px)) rotate(-45deg);
+          -webkit-transform: translateY(px2rem(8px)) rotate(-45deg);
         }
         &:nth-child(2) {
           background-color: transparent;
         }
         &:last-child {
-          transform: translateY(-9px) rotate(45deg);
-          -webkit-transform: translateY(-9px) rotate(45deg);
+          transform: translateY(px2rem(-8px)) rotate(45deg);
+          -webkit-transform: translateY(-px2rem(-8px)) rotate(45deg);
         }
       }
     }
