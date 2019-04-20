@@ -1,18 +1,20 @@
 <template>
   <div>
-    <div class="swiper">
-      <swiper :options="swiperOption" ref="mySwiper">
-        <swiper-slide v-for="(item, index) in project.images" :key="index">
-          <img :src="imgBaseUrl+item.path+item.url">
-        </swiper-slide>
-        <div class="swiper-pagination"  slot="pagination"></div>
-      </swiper>
+    <div class="images-wrap">
+      <div class="swiper">
+        <swiper :options="swiperOption" ref="mySwiper">
+          <swiper-slide v-for="(item, index) in project.images" :key="index">
+            <img :src="imgBaseUrl+item.path+item.url">
+          </swiper-slide>
+          <div class="swiper-pagination"  slot="pagination"></div>
+        </swiper>
+      </div>
+      <h3 class="project-title">
+        <span class="text-title">{{project.title}}</span>
+        <span class="img-tag" @click="toPreview(project.id)">{{project.images.length}}</span>
+      </h3>
     </div>
-    <h3 class="project-title">
-      <span class="text-title">{{project.title}}</span>
-      <span class="img-tag" @click="toPreview(project.id)">{{project.images.length}}</span>
-    </h3>
-    <p class="project-content">{{project.introduce}}</p>
+    <p class="project-content" v-html="project.introduce"></p>
   </div>
 </template>
 
@@ -59,6 +61,7 @@ export default {
         }
       })
       this.project = result[0];
+      this.project.introduce = this.project.introduce.replace(/[\n\r]/gm, '<br>');
     },
     toPreview(id) {
       this.$router.push({
@@ -85,6 +88,11 @@ export default {
 
 <style lang='scss' scoped>
   @import "../../style/main.scss";
+  .images-wrap {
+    position: fixed;
+    width: 100%;
+    top: px2rem(50px);
+  }
   .swiper {
     height: px2rem(200px);
     overflow: hidden;
@@ -100,6 +108,7 @@ export default {
     font-weight: bold;
     padding: 0 px2rem(15px);
     display: flex;
+    background: #fff;
     .text-title {
       font-weight: bold;
       flex: 1;
@@ -124,14 +133,9 @@ export default {
     }
   }
   .project-content {
-    padding: 0 px2rem(15px) px2rem(20px);
+    padding: px2rem(306px) px2rem(15px) px2rem(20px);
     color: #333;
     font-size: px2rem(16px);
-    position: fixed;
-    top: px2rem(306px);
-    bottom: 0;
-    left: 0;
-    right: 0;
     overflow-y: auto;
     line-height: px2rem(30px);
   }
